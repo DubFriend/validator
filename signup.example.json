@@ -1,0 +1,28 @@
+{
+	"username": [
+		{ "required": "username required" }
+		// { "minimumLength:3": "3 minimum" },
+		// { "maximumLength:10": "10 maximum" },
+		// { "regex:[0-9a-zA-Z]": "alphanumeric only" }
+	],
+	"temperature": [
+		{ "type:number": "temperature is a number" },
+		{ ">=:0": "must be >= 0 degrees" },
+		{ "<:100": "must be < 100 degrees" }
+	],
+	"email": [
+		{ "format:email": "bad email format" }
+	],
+	"password": [
+		//should throw exception if password is not given an array of two passwords.
+		{ "match": "passwords do not match" }
+	]
+}
+
+// required
+// minimumLength, maximumLength
+// regex
+
+// type: string, numeric, numericInteger, number, integer, object
+// format: email, url, creditCardNumber, phoneUSA, zipcodeUSA
+// match
