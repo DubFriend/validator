@@ -1,9 +1,9 @@
 {
 	"username": [
-		{ "required": "username required" }
-		// { "minimumLength:3": "3 minimum" },
-		// { "maximumLength:10": "10 maximum" },
-		// { "regex:[0-9a-zA-Z]": "alphanumeric only" }
+		{ "required": "username required" },
+		{ "minimumLength:3": "3 minimum" },
+		{ "maximumLength:10": "10 maximum" },
+		{ "regex:/^[a-zA-z0-9]*$/": "alphanumeric only" }
 	],
 	"temperature": [
 		{ "type:number": "temperature is a number" },
@@ -23,6 +23,6 @@
 // minimumLength, maximumLength
 // regex
 
-// type: string, numeric, numericInteger, number, integer, object
-// format: email, url, creditCardNumber, phoneUSA, zipcodeUSA
+// type: number, string, boolean, object, null
+// format: email, url, creditCardNumber, number, integer
 // match
