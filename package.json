@@ -1,0 +1,27 @@
+{
+  "name": "validator",
+  "version": "0.0.0",
+  "description": "universal validation through a json interface",
+  "main": "validator.js",
+  "scripts": {
+    "test": "nodeunit validatorTest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DubFriend/validator.git"
+  },
+  "keywords": [
+    "validation",
+    "javascript",
+    "php",
+    "json"
+  ],
+  "author": "Brian Detering <BDeterin@gmail.com> (http://www.briandetering.net/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DubFriend/validator/issues"
+  },
+  "devDependencies": {
+    "nodeunit": "~0.8.2"
+  }
+}

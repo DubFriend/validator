@@ -1,5 +1,5 @@
 <?php
-require_once 'validate.php';
+require_once 'validator.php';
 
 class ValidateTest extends PHPUnit_Framework_TestCase {
 	private $validator;

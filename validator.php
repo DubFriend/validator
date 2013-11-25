@@ -32,12 +32,10 @@ class ValidatorTestWrapper {
 class Validator {
     private $schema;
     function __construct($schema) {
-        if(is_array($schema)) {
-            $this->schema = $this->wrapSchema($schema);
-        }
-        else {
-            $this->schema = $this->wrapSchema(json_decode(file_get_contents($schema), true));
-        }
+        $this->schema = $this->wrapSchema(
+            is_array($schema) ?
+                $schema : json_decode(file_get_contents($schema), true)
+        );
     }
 
     private function wrapSchema($schema) {
