@@ -5,24 +5,44 @@
 		{ "maximumLength:10": "10 maximum" },
 		{ "regex:/^[a-zA-z0-9]*$/": "alphanumeric only" }
 	],
-	"temperature": [
-		{ "type:number": "temperature is a number" },
-		{ ">=:0": "must be >= 0 degrees" },
-		{ "<:100": "must be < 100 degrees" }
+
+	"number": [
+		{ "type:number": "must be of type number" }
 	],
+	"string": [
+		{ "type:string": "must be of type string" }
+	],
+	"boolean": [
+		{ "type:boolean": "must be of type boolean" }
+	],
+	"object": [
+		{ "type:object": "must be of type object" }
+	],
+	"null": [
+		{ "type:null": "must be of type null" }
+	],
+
+	"lessThan": [
+		{ "<:0": "must be less than zero" }
+	],
+	"lessThanOrEqualTo": [
+		{ "<=:0": "must be less than or equal to zero" }
+	],
+	"greaterThan": [
+		{ ">:0": "must be greater than zero" }
+	],
+	"greaterThanOrEqualTo": [
+		{ ">=:0": "must be greater than or equal to zero" }
+	],
+	"equalTo": [
+		{ "==:0": "must be equal to zero" }
+	],
+
 	"email": [
-		{ "format:email": "bad email format" }
+		{ "email": "bad email format" }
 	],
-	"password": [
-		//should throw exception if password is not given an array of two passwords.
-		{ "match": "passwords do not match" }
+
+	"match": [
+		{ "match": "values must match" }
 	]
 }
-
-// required
-// minimumLength, maximumLength
-// regex
-
-// type: number, string, boolean, object, null
-// format: email, url, creditCardNumber, number, integer
-// match
