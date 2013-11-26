@@ -3,7 +3,7 @@
 		{ "required": "username required" },
 		{ "minimumLength:3": "3 minimum" },
 		{ "maximumLength:10": "10 maximum" },
-		{ "regex:/^[a-zA-z0-9]*$/": "alphanumeric only" }
+		{ "regex:/^[a-zA-Z0-9]*$/": "alphanumeric only" }
 	],
 
 	"number": [
