@@ -85,7 +85,7 @@ class Validator {
             case 'null':
                 return $type === 'NULL';
             default:
-                throw new ValidatorException('invalid type ' . $valueToTest);
+                throw new ValidatorException('invalid type ' . $testValue);
         }
     }
 

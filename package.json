@@ -1,6 +1,6 @@
 {
   "name": "validator",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "universal validation through a json interface",
   "main": "validator.js",
   "scripts": {
@@ -12,6 +12,7 @@
   },
   "keywords": [
     "validation",
+    "form",
     "javascript",
     "php",
     "json"

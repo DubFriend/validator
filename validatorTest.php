@@ -35,13 +35,6 @@ class ValidateTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
-	function testInstantiateWithArray() {
-		$validator = new Validator(array(
-			'field' => array(array('required' => 'fail'))
-		));
-		$this->assertEquals(array('field' => 'fail'), $validator->test(array()));
-	}
-
 	function testUsernameMinimumLengthFail() {
 		$this->assertEquals(
 			array('username' => "3 minimum"),
