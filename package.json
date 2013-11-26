@@ -1,5 +1,5 @@
 {
-  "name": "validator",
+  "name": "the_validator",
   "version": "0.1.0",
   "description": "universal validation through a json interface",
   "main": "validator.js",
