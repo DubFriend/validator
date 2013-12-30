@@ -246,6 +246,16 @@ module.exports = {
             'match must recieve an array with two values'
         );
         test.done();
+    },
+
+    testEnumerated: function (test) {
+        test.deepEqual(this.validateExtended({ enumerated: 'a' }), {});
+        test.deepEqual(this.validateExtended({ enumerated: 'b' }), {});
+        test.deepEqual(
+            this.validateExtended({ enumerated: 'c' }),
+            { enumerated: "value not in enumerated set" }
+        );
+        test.done();
     }
 
 };

@@ -80,6 +80,16 @@ tests both values of a passed array of two values match
 }
 ```
 
+###enumerated
+tests that value is a member of a set of values
+```json
+{
+    "letter": [
+        { "enumerated:a,b,c": "value is not 'a', 'b' or 'c'" }
+    ]
+}
+```
+
 
 Currently Implentations are Javascript and PHP.
 

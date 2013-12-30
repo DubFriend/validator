@@ -141,6 +141,10 @@ class Validator {
             return $valueToTest[0] == $valueToTest[1];
         }
     }
+
+    private function enumerated($valueToTest, $testValue) {
+        return in_array($valueToTest, explode(',', $testValue));
+    }
     // TEST FUNCTIONS END
 
     function test(array $dataToTest) {

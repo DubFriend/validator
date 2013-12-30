@@ -238,5 +238,18 @@ class ValidateTest extends PHPUnit_Framework_TestCase {
 	function testMatchInproperFormat() {
 		$this->validateExtended(array('match' => array(1)));
 	}
+
+	function testEnumerated() {
+		$this->assertEquals(
+			array(), $this->validateExtended(array('enumerated' => 'a'))
+		);
+		$this->assertEquals(
+			array(), $this->validateExtended(array('enumerated' => 'b'))
+		);
+		$this->assertEquals(
+			array('enumerated' => 'value not in enumerated set'),
+			$this->validateExtended(array('enumerated' => 'c'))
+		);
+	}
 }
 ?>

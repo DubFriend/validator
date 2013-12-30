@@ -130,6 +130,10 @@
             else {
                 throw 'match must recieve an array with two values';
             }
+        },
+        enumerated: function (valueToTest, testValue) {
+            var acceptedValues = testValue.split(',');
+            return acceptedValues.indexOf(valueToTest) !== -1;
         }
     };
 

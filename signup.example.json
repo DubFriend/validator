@@ -44,5 +44,9 @@
 
 	"match": [
 		{ "match": "values must match" }
+	],
+
+	"enumerated": [
+		{ "enumerated:a,b": "value not in enumerated set" }
 	]
 }
