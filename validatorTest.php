@@ -257,5 +257,34 @@ class ValidateTest extends PHPUnit_Framework_TestCase {
 			array(), $this->validateExtended(array('colonOnly' => ':'))
 		);
     }
+
+    function testNumericPass() {
+    	$this->assertEquals(
+    		array(), $this->validateExtended(array('numeric' => '123'))
+    	);
+    	$this->assertEquals(
+    		array(), $this->validateExtended(array('numeric' => '123.456'))
+    	);
+    	$this->assertEquals(
+    		array(), $this->validateExtended(array('numeric' => '.45'))
+    	);
+    	$this->assertEquals(
+    		array(), $this->validateExtended(array('numeric' => '1.'))
+    	);
+    	$this->assertEquals(
+    		array(), $this->validateExtended(array('numeric' => '01'))
+    	);
+    }
+
+    function testNumericFail() {
+    	$this->assertEquals(
+    		array('numeric' => 'must be numeric'),
+    		$this->validateExtended(array('numeric' => '1a2'))
+    	);
+    	$this->assertEquals(
+    		array('numeric' => 'must be numeric'),
+    		$this->validateExtended(array('numeric' => '123 '))
+    	);
+    }
 }
 ?>

@@ -9,15 +9,19 @@
 	"number": [
 		{ "type:number": "must be of type number" }
 	],
+
 	"string": [
 		{ "type:string": "must be of type string" }
 	],
+
 	"boolean": [
 		{ "type:boolean": "must be of type boolean" }
 	],
+
 	"object": [
 		{ "type:object": "must be of type object" }
 	],
+
 	"null": [
 		{ "type:null": "must be of type null" }
 	],
@@ -51,6 +55,25 @@
 	],
 
 	"colonOnly": [
-		{"regex:/^[:]$/": "must be a :"}
+		{"regex:/^[:]$/": "must be a ':'"}
+	],
+
+
+
+
+	"numeric": [
+		{"numeric": "must be numeric" }
+	],
+
+	"integer": [
+		{ "integer": "must be numbers only" }
+	],
+
+	"alphabet": [
+		{ "alphabet": "letters A-Z and a-z only" }
+	],
+
+	"alphanumeric": [
+		{ "alphanumeric": "letters and numbers only" }
 	]
 }

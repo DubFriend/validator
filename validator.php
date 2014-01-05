@@ -148,6 +148,10 @@ class Validator {
     private function enumerated($valueToTest, $testValue) {
         return in_array($valueToTest, explode(',', $testValue));
     }
+
+    private function numeric($valueToTest) {
+        return preg_match('/^[0-9]*\.?[0-9]*$/', $valueToTest);
+    }
     // TEST FUNCTIONS END
 
     function test(array $dataToTest) {

@@ -261,6 +261,21 @@ module.exports = {
     testUseColonInValue: function (test) {
         test.deepEqual(this.validateExtended({ colonOnly: ':'}), {});
         test.done();
+    },
+
+    testNumericPass: function (test) {
+        test.deepEqual(this.validateExtended({ numeric: '123' }), {});
+        test.deepEqual(this.validateExtended({ numeric: '123.456' }), {});
+        test.deepEqual(this.validateExtended({ numeric: '.45' }), {});
+        test.deepEqual(this.validateExtended({ numeric: '1.' }), {});
+        test.deepEqual(this.validateExtended({ numeric: '01' }), {});
+        test.done();
+    },
+
+    testNumericFail: function (test) {
+        test.ok(this.validateExtended({ numeric: '1a2' }).numeric);
+        test.ok(this.validateExtended({ numeric: '123 '}).numeric);
+        test.done();
     }
 
 };

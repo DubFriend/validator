@@ -137,6 +137,9 @@
         enumerated: function (valueToTest, testValue) {
             var acceptedValues = testValue.split(',');
             return acceptedValues.indexOf(valueToTest) !== -1;
+        },
+        numeric: function (valueToTest) {
+            return (/^[0-9]*\.?[0-9]*$/).test(valueToTest);
         }
     };
 
