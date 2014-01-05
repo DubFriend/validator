@@ -259,10 +259,7 @@ module.exports = {
     },
 
     testUseColonInValue: function (test) {
-        var validator = new Validator({
-            foo: [{"regex:/^[:]$/": "must be a :"}]
-        });
-        test.deepEqual(validator.test({ foo: ':'}), {});
+        test.deepEqual(this.validateExtended({ colonOnly: ':'}), {});
         test.done();
     }
 

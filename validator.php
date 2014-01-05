@@ -29,12 +29,10 @@ class ValidatorTestWrapper {
     //data to be tested)
     function value() {
         $pieces = explode(':', $this->description());
-        $value = null;
         if(count($pieces) > 1) {
             array_shift($pieces);
-            $value = implode(':', $pieces);
+            return implode(':', $pieces);
         }
-        return $value;
     }
 }
 

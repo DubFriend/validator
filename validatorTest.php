@@ -253,17 +253,9 @@ class ValidateTest extends PHPUnit_Framework_TestCase {
 	}
 
 	function testUseColonInValue() {
-        $validator = new Validator(array(
-            "foo" => array(
-            	array("regex:/^[:]$/" => "must be a :")
-            )
-        ));
-        $this->assertEquals(
-        	array(),
-        	$validator->test(array("foo" => ":"))
-        );
-        // test.deepEqual(validator.test({ foo: ':'}), {});
-        // test.done();
+		$this->assertEquals(
+			array(), $this->validateExtended(array('colonOnly' => ':'))
+		);
     }
 }
 ?>

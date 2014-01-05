@@ -48,5 +48,9 @@
 
 	"enumerated": [
 		{ "enumerated:a,b": "value not in enumerated set" }
+	],
+
+	"colonOnly": [
+		{"regex:/^[:]$/": "must be a :"}
 	]
 }

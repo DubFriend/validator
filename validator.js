@@ -61,17 +61,10 @@
             },
             value: function () {
                 var pieces = this.description().split(':');
-                var value;
                 if(pieces.length > 1) {
                     pieces.shift();
-                    value = pieces.join(':');
+                    return pieces.join(':');
                 }
-                else {
-                    value = undefined;
-                }
-                return value;
-                // var pieces = this.description().split(':');
-                // return pieces.length > 1 ? pieces[1] : undefined;
             }
         };
     };
