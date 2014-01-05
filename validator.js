@@ -77,18 +77,22 @@
         required: function (valueToTest) {
             return valueToTest ? true : false;
         },
+
         minimumLength: function (valueToTest, testValue) {
             return valueToTest.length >= testValue;
         },
+
         maximumLength: function (valueToTest, testValue) {
             return valueToTest.length <= testValue;
         },
+
         regex: function (valueToTest, testValue) {
             var pieces = testValue.split('/');
             var pattern = pieces[1];
             var modifiers = pieces[2] || undefined;
             return new RegExp(pattern, modifiers).test(valueToTest);
         },
+
         type: function (valueToTest, testValue) {
             var typeOf = typeof valueToTest;
             switch(testValue) {
@@ -106,26 +110,33 @@
                     throw 'invalid type ' + testValue;
             }
         },
+
         '<': function (valueToTest, testValue) {
             return valueToTest < testValue;
         },
+
         '<=': function (valueToTest, testValue) {
             return valueToTest <= testValue;
         },
+
         '>': function (valueToTest, testValue) {
             return valueToTest > testValue;
         },
+
         '>=': function (valueToTest, testValue) {
             return valueToTest >= testValue;
         },
+
         '==': function (valueToTest, testValue) {
             return valueToTest == testValue;
         },
+
         email: function (valueToTest) {
             return (
                 /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
             ).test(valueToTest);
         },
+
         match: function (valueToTest) {
             if(valueToTest.length === 2) {
                 return valueToTest[0] == valueToTest[1];
@@ -134,12 +145,26 @@
                 throw 'match must recieve an array with two values';
             }
         },
+
         enumerated: function (valueToTest, testValue) {
             var acceptedValues = testValue.split(',');
             return acceptedValues.indexOf(valueToTest) !== -1;
         },
+
         numeric: function (valueToTest) {
             return (/^[0-9]*\.?[0-9]*$/).test(valueToTest);
+        },
+
+        integer: function (valueToTest) {
+            return (/^[0-9]*$/).test(valueToTest);
+        },
+
+        alphabetical: function (valueToTest) {
+            return (/^[a-zA-Z]*$/).test(valueToTest);
+        },
+
+        alphanumeric: function (valueToTest) {
+            return (/^[a-zA-Z0-9]*$/).test(valueToTest);
         }
     };
 

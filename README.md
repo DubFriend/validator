@@ -90,6 +90,22 @@ tests that value is a member of a set of values
 }
 ```
 
+###numeric
+Numeric strings. accepts values such as "123", "1.2", ".5", "05", "1."
+```json
+{ "numeric": "numeric string" }
+```
+
+###integer
+Integer strings. Only characters 0-9
+
+###alphabetical
+Strings of only letters (upper or lower case)
+
+###alphanumeric
+Strings of only letters and digits
+
+
 
 Currently Implentations are Javascript and PHP.
 

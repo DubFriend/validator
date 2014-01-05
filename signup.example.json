@@ -58,9 +58,6 @@
 		{"regex:/^[:]$/": "must be a ':'"}
 	],
 
-
-
-
 	"numeric": [
 		{"numeric": "must be numeric" }
 	],
@@ -69,8 +66,8 @@
 		{ "integer": "must be numbers only" }
 	],
 
-	"alphabet": [
-		{ "alphabet": "letters A-Z and a-z only" }
+	"alphabetical": [
+		{ "alphabetical": "letters A-Z and a-z only" }
 	],
 
 	"alphanumeric": [

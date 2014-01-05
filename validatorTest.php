@@ -285,6 +285,64 @@ class ValidateTest extends PHPUnit_Framework_TestCase {
     		array('numeric' => 'must be numeric'),
     		$this->validateExtended(array('numeric' => '123 '))
     	);
+    	$this->assertEquals(
+    		array('numeric' => 'must be numeric'),
+    		$this->validateExtended(array('numeric' => '1.2.3 '))
+    	);
+    }
+
+    function testIntegerPass() {
+    	$this->assertEquals(
+    		array(),
+    		$this->validateExtended(array('integer' => '123'))
+    	);
+    	$this->assertEquals(
+    		array(),
+    		$this->validateExtended(array('integer' => '0001'))
+    	);
+    }
+
+    function testIntegerFail() {
+    	$this->assertEquals(
+    		array('integer' => 'must be numbers only'),
+    		$this->validateExtended(array('integer' => '1.2'))
+    	);
+    	$this->assertEquals(
+    		array('integer' => 'must be numbers only'),
+    		$this->validateExtended(array('integer' => '1a2'))
+    	);
+    }
+
+    function testAlphabeticalPass() {
+    	$this->assertEquals(
+    		array(),
+    		$this->validateExtended(array('alphabetical' => 'aBc'))
+    	);
+    }
+
+    function testAlphabeticalFail() {
+    	$this->assertEquals(
+    		array('alphabetical' => 'letters A-Z and a-z only'),
+    		$this->validateExtended(array('alphabetical' => 'a1c'))
+    	);
+    	$this->assertEquals(
+    		array('alphabetical' => 'letters A-Z and a-z only'),
+    		$this->validateExtended(array('alphabetical' => ' ac'))
+    	);
+    }
+
+    function testAlphanumericPass() {
+    	$this->assertEquals(
+    		array(),
+    		$this->validateExtended(array('alphanumeric' => 'a1B'))
+    	);
+    }
+
+    function testAlphanumericFail() {
+    	$this->assertEquals(
+    		array('alphanumeric' => 'letters and numbers only'),
+    		$this->validateExtended(array('alphanumeric' => 'a 1b'))
+    	);
     }
 }
 ?>

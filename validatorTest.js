@@ -275,7 +275,40 @@ module.exports = {
     testNumericFail: function (test) {
         test.ok(this.validateExtended({ numeric: '1a2' }).numeric);
         test.ok(this.validateExtended({ numeric: '123 '}).numeric);
+        test.ok(this.validateExtended({ numeric: '1.2.3 '}).numeric);
+        test.done();
+    },
+
+    testIntegerPass: function (test) {
+        test.deepEqual(this.validateExtended({ integer: '123' }), {});
+        test.deepEqual(this.validateExtended({ integer: '0001' }), {});
+        test.done();
+    },
+
+    testIntegerFail: function (test) {
+        test.ok(this.validateExtended({ integer: '1.2' }).integer);
+        test.ok(this.validateExtended({ integer: '1a2' }).integer);
+        test.done();
+    },
+
+    testAlphabeticalPass: function (test) {
+        test.deepEqual(this.validateExtended({ alphabetical: 'aBc' }), {});
+        test.done();
+    },
+
+    testAlphabeticalFail: function (test) {
+        test.ok(this.validateExtended({ alphabetical: 'a1c' }).alphabetical);
+        test.ok(this.validateExtended({ alphabetical: ' ac' }).alphabetical);
+        test.done();
+    },
+
+    testAlphanumericPass: function (test) {
+        test.deepEqual(this.validateExtended({ alphanumeric: 'a1B' }), {});
+        test.done();
+    },
+
+    testAlphanumericFail: function (test) {
+        test.ok(this.validateExtended({ alphanumeric: 'a 1b' }), {});
         test.done();
     }
-
 };

@@ -152,6 +152,18 @@ class Validator {
     private function numeric($valueToTest) {
         return preg_match('/^[0-9]*\.?[0-9]*$/', $valueToTest);
     }
+
+    private function integer($valueToTest) {
+        return preg_match('/^[0-9]*$/', $valueToTest);
+    }
+
+    private function alphabetical($valueToTest) {
+        return preg_match('/^[a-zA-Z]*$/', $valueToTest);
+    }
+
+    private function alphanumeric($valueToTest) {
+        return preg_match('/^[a-zA-Z0-9]*$/', $valueToTest);
+    }
     // TEST FUNCTIONS END
 
     function test(array $dataToTest) {
