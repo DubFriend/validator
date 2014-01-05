@@ -256,6 +256,14 @@ module.exports = {
             { enumerated: "value not in enumerated set" }
         );
         test.done();
+    },
+
+    testUseColonInValue: function (test) {
+        var validator = new Validator({
+            foo: [{"regex:/^[:]$/": "must be a :"}]
+        });
+        test.deepEqual(validator.test({ foo: ':'}), {});
+        test.done();
     }
 
 };
