@@ -32,6 +32,11 @@ module.exports = {
         test.done();
     },
 
+    testSkipTestIfEmptyStringAndNotRequired: function (test) {
+        test.deepEqual(this.validateExtended({ email: '' }), {});
+        test.done();
+    },
+
     testFailRequiredFalsyValue: function (test) {
         test.deepEqual(
             this.validator.test({ username: '' }),
@@ -137,9 +142,9 @@ module.exports = {
         test.done();
     },
 
-    testTypNullFail: function (test) {
+    testTypeNullFail: function (test) {
         test.deepEqual(
-            this.validateExtended({ 'null': '' }),
+            this.validateExtended({ 'null': 0 }),
             { 'null': 'must be of type null' }
         );
         test.done();

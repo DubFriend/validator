@@ -169,7 +169,7 @@ class Validator {
     function test(array $dataToTest) {
         $errors = array();
         foreach($this->schema as $name => $tests) {
-            if(array_key_exists($name, $dataToTest)) {
+            if(array_key_exists($name, $dataToTest) && $dataToTest[$name] !== '') {
                 foreach($tests as $testObject) {
                     if(!$this->isTestPass($dataToTest[$name], $testObject)) {
                         $errors[$name] = $testObject->message();

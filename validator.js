@@ -177,7 +177,7 @@
             test: function (dataToTest) {
                 var errors = {};
                 foreach(schema, function (tests, name) {
-                    if(dataToTest[name] !== undefined) {
+                    if(dataToTest[name] !== undefined && dataToTest[name] !== '') {
                         var testObject;
                         for(var i = 0; i < tests.length; i += 1) {
                             testObject = tests[i];

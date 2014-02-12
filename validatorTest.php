@@ -21,6 +21,12 @@ class ValidateTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
+    function testSkipTestIfEmptyStringAndNotRequired() {
+        $this->assertEquals(
+            array(), $this->validateExtended(array('email' => ''))
+        );
+    }
+
 	function testFailRequiredFalsyValue() {
 		$this->assertEquals(
 			array('username' => 'username required'),
@@ -137,7 +143,7 @@ class ValidateTest extends PHPUnit_Framework_TestCase {
 	function testTypeNullFail() {
 		$this->assertEquals(
 			array('null' => 'must be of type null'),
-			$this->validateExtended(array('null' => ''))
+			$this->validateExtended(array('null' => 0))
 		);
 	}
 
