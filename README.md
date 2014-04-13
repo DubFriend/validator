@@ -130,3 +130,6 @@ var errors = validator.test({
     password: 'cornflakes'
 });
 ```
+
+install via npm
+`npm install the_validator`

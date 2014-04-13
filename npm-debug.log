@@ -1,0 +1,152 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'publish' ]
+2 info using npm@1.3.11
+3 info using node@v0.10.21
+4 verbose node symlink /usr/bin/node
+5 verbose publish [ '.' ]
+6 verbose cache add [ '.', null ]
+7 verbose cache add name=undefined spec="." args=[".",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: '.',
+8 verbose parsed url   path: '.',
+8 verbose parsed url   href: '.' }
+9 silly lockFile 3a52ce78- .
+10 verbose lock . /home/brian/.npm/3a52ce78-.lock
+11 verbose tar pack [ '/home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/tmp.tgz',
+11 verbose tar pack   '.' ]
+12 verbose tarball /home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/tmp.tgz
+13 verbose folder .
+14 silly lockFile 1f1177db-tar tar://.
+15 verbose lock tar://. /home/brian/.npm/1f1177db-tar.lock
+16 silly lockFile 0b956d28-0119-0-26825738209299743-tmp-tgz tar:///home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/tmp.tgz
+17 verbose lock tar:///home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/tmp.tgz /home/brian/.npm/0b956d28-0119-0-26825738209299743-tmp-tgz.lock
+18 silly lockFile 1f1177db-tar tar://.
+19 silly lockFile 1f1177db-tar tar://.
+20 silly lockFile 0b956d28-0119-0-26825738209299743-tmp-tgz tar:///home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/tmp.tgz
+21 silly lockFile 0b956d28-0119-0-26825738209299743-tmp-tgz tar:///home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/tmp.tgz
+22 verbose tar unpack /home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/tmp.tgz
+23 silly lockFile 68ac25f5-0119-0-26825738209299743-package tar:///home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/package
+24 verbose lock tar:///home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/package /home/brian/.npm/68ac25f5-0119-0-26825738209299743-package.lock
+25 silly lockFile 0b956d28-0119-0-26825738209299743-tmp-tgz tar:///home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/tmp.tgz
+26 verbose lock tar:///home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/tmp.tgz /home/brian/.npm/0b956d28-0119-0-26825738209299743-tmp-tgz.lock
+27 silly gunzTarPerm modes [ '755', '644' ]
+28 silly gunzTarPerm extractEntry package.json
+29 silly gunzTarPerm modified mode [ 'package.json', 511, 493 ]
+30 silly gunzTarPerm extractEntry .npmignore
+31 silly gunzTarPerm modified mode [ '.npmignore', 511, 493 ]
+32 silly gunzTarPerm extractEntry README.md
+33 silly gunzTarPerm modified mode [ 'README.md', 511, 493 ]
+34 silly gunzTarPerm extractEntry validator.js
+35 silly gunzTarPerm modified mode [ 'validator.js', 511, 493 ]
+36 silly gunzTarPerm extractEntry validatorTest.js
+37 silly gunzTarPerm modified mode [ 'validatorTest.js', 511, 493 ]
+38 silly gunzTarPerm extractEntry LICENSE.md
+39 silly gunzTarPerm modified mode [ 'LICENSE.md', 511, 493 ]
+40 silly gunzTarPerm extractEntry signup.example.json
+41 silly gunzTarPerm modified mode [ 'signup.example.json', 511, 493 ]
+42 silly gunzTarPerm extractEntry validator.php
+43 silly gunzTarPerm modified mode [ 'validator.php', 511, 493 ]
+44 silly gunzTarPerm extractEntry validatorTest.php
+45 silly gunzTarPerm modified mode [ 'validatorTest.php', 511, 493 ]
+46 silly lockFile 68ac25f5-0119-0-26825738209299743-package tar:///home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/package
+47 silly lockFile 68ac25f5-0119-0-26825738209299743-package tar:///home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/package
+48 silly lockFile 0b956d28-0119-0-26825738209299743-tmp-tgz tar:///home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/tmp.tgz
+49 silly lockFile 0b956d28-0119-0-26825738209299743-tmp-tgz tar:///home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/tmp.tgz
+50 verbose tar pack [ '/home/brian/.npm/the_validator/0.1.9/package.tgz',
+50 verbose tar pack   '/home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/package' ]
+51 verbose tarball /home/brian/.npm/the_validator/0.1.9/package.tgz
+52 verbose folder /home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/package
+53 silly lockFile 68ac25f5-0119-0-26825738209299743-package tar:///home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/package
+54 verbose lock tar:///home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/package /home/brian/.npm/68ac25f5-0119-0-26825738209299743-package.lock
+55 silly lockFile 07fe98fd--the-validator-0-1-9-package-tgz tar:///home/brian/.npm/the_validator/0.1.9/package.tgz
+56 verbose lock tar:///home/brian/.npm/the_validator/0.1.9/package.tgz /home/brian/.npm/07fe98fd--the-validator-0-1-9-package-tgz.lock
+57 silly lockFile 68ac25f5-0119-0-26825738209299743-package tar:///home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/package
+58 silly lockFile 68ac25f5-0119-0-26825738209299743-package tar:///home/brian/tmp/npm-4322-Wc7WLDQy/1397418760119-0.26825738209299743/package
+59 silly lockFile 07fe98fd--the-validator-0-1-9-package-tgz tar:///home/brian/.npm/the_validator/0.1.9/package.tgz
+60 silly lockFile 07fe98fd--the-validator-0-1-9-package-tgz tar:///home/brian/.npm/the_validator/0.1.9/package.tgz
+61 silly lockFile 4a5683ce--npm-the-validator-0-1-9-package /home/brian/.npm/the_validator/0.1.9/package
+62 verbose lock /home/brian/.npm/the_validator/0.1.9/package /home/brian/.npm/4a5683ce--npm-the-validator-0-1-9-package.lock
+63 silly lockFile 4a5683ce--npm-the-validator-0-1-9-package /home/brian/.npm/the_validator/0.1.9/package
+64 silly lockFile 4a5683ce--npm-the-validator-0-1-9-package /home/brian/.npm/the_validator/0.1.9/package
+65 verbose tar unpack /home/brian/.npm/the_validator/0.1.9/package.tgz
+66 silly lockFile 46578470--npm-the-validator-0-1-9-package tar:///home/brian/.npm/the_validator/0.1.9/package
+67 verbose lock tar:///home/brian/.npm/the_validator/0.1.9/package /home/brian/.npm/46578470--npm-the-validator-0-1-9-package.lock
+68 silly lockFile 07fe98fd--the-validator-0-1-9-package-tgz tar:///home/brian/.npm/the_validator/0.1.9/package.tgz
+69 verbose lock tar:///home/brian/.npm/the_validator/0.1.9/package.tgz /home/brian/.npm/07fe98fd--the-validator-0-1-9-package-tgz.lock
+70 silly gunzTarPerm modes [ '755', '644' ]
+71 silly gunzTarPerm extractEntry package.json
+72 silly gunzTarPerm extractEntry .npmignore
+73 silly gunzTarPerm extractEntry README.md
+74 silly gunzTarPerm extractEntry validator.js
+75 silly gunzTarPerm extractEntry validatorTest.js
+76 silly gunzTarPerm extractEntry LICENSE.md
+77 silly gunzTarPerm extractEntry signup.example.json
+78 silly gunzTarPerm extractEntry validator.php
+79 silly gunzTarPerm extractEntry validatorTest.php
+80 silly lockFile 46578470--npm-the-validator-0-1-9-package tar:///home/brian/.npm/the_validator/0.1.9/package
+81 silly lockFile 46578470--npm-the-validator-0-1-9-package tar:///home/brian/.npm/the_validator/0.1.9/package
+82 silly lockFile 07fe98fd--the-validator-0-1-9-package-tgz tar:///home/brian/.npm/the_validator/0.1.9/package.tgz
+83 silly lockFile 07fe98fd--the-validator-0-1-9-package-tgz tar:///home/brian/.npm/the_validator/0.1.9/package.tgz
+84 verbose chmod /home/brian/.npm/the_validator/0.1.9/package.tgz 644
+85 verbose chown /home/brian/.npm/the_validator/0.1.9/package.tgz [ 1000, 1000 ]
+86 silly lockFile 3a52ce78- .
+87 silly lockFile 3a52ce78- .
+88 silly publish { name: 'the_validator',
+88 silly publish   version: '0.1.9',
+88 silly publish   description: 'universal validation through a json interface',
+88 silly publish   main: 'validator.js',
+88 silly publish   scripts: { test: 'nodeunit validatorTest.js' },
+88 silly publish   repository:
+88 silly publish    { type: 'git',
+88 silly publish      url: 'https://github.com/DubFriend/validator.git' },
+88 silly publish   keywords: [ 'validation', 'form', 'javascript', 'php', 'json' ],
+88 silly publish   author:
+88 silly publish    { name: 'Brian Detering',
+88 silly publish      email: 'BDeterin@gmail.com',
+88 silly publish      url: 'http://www.briandetering.net/' },
+88 silly publish   license: 'MIT',
+88 silly publish   bugs: { url: 'https://github.com/DubFriend/validator/issues' },
+88 silly publish   devDependencies: { nodeunit: '~0.8.2' },
+88 silly publish   readme: '#The Validator!\n\n##Capable of leaping across language barriers, validating data in a flash, and rescuing small kittens.\n\nBy using a JSON interface, Validator can be implemented in any programming language.  Validator prevents duplication of validation logic on the client and server.\n\n##Create a schema\n\n```json\n{\n    "fieldName": [\n        test1, test2, ...\n    ],\n    "anotherField": [...]\n}\n```\n\ntests are of the form\n```json\n{ "testType:testValue": "message if test fails" }\n```\n\n##testType\n\n###required\nrequired must be the first test of a given fieldName.  Passes if the given field name evaluates to a truthy value. If a required test is not present, then subsequent tests will only be run if the tested data contains a key for the associated fieldname.\n```json\n{\n    "username": [\n        { "required": "you must supply a username" }\n    ]\n}\n```\n\n###minimumLength\nstring must be of the specified minum length\n```json\n{\n    "password": [\n        { "required": "password required" },\n        { "minimumLength:6", "password must be at least six characters long" }\n    ]\n}\n```\n\n###maximumLength\nanalogous logic to minimumLength\n\n###regex\nmust match the supplied regex\n```json\n{"regex:/^[a-zA-Z0-9*$/": "alphanumeric characters only" }\n```\n\n###type\ncan test for types number, string, boolean, object, and null.\n```json\n{ "type:boolean": "must be true or false" }\n```\n\n###comparison operators\nperform the <, >, <=, >=, and == operators.\n```json\n{ ">=:100": "you must be 100cm tall to ride the Ferris wheel" }\n```\n\n###email\ntest if matches a proper email format\n```json\n{ "email": "bad email format" }\n```\n\n###match\ntests both values of a passed array of two values match\n```json\n{\n    "password": [\n        { "match": "passwords must match" }\n    ]\n}\n```\n\n###enumerated\ntests that value is a member of a set of values\n```json\n{\n    "letter": [\n        { "enumerated:a,b,c": "value is not \'a\', \'b\' or \'c\'" }\n    ]\n}\n```\n\n###numeric\nNumeric strings. accepts values such as "123", "1.2", ".5", "05", "1."\n```json\n{ "numeric": "numeric string" }\n```\n\n###integer\nInteger strings. Only characters 0-9\n\n###alphabetical\nStrings of only letters (upper or lower case)\n\n###alphanumeric\nStrings of only letters and digits\n\n\n\nCurrently Implentations are Javascript and PHP.\n\n##PHP\n\n```php\n$validator = new Validator(json_decode(file_get_contents(\'validation_schema.json\'), true));\n\n$errors = $validator->test(array(\n    \'username\' => \'bob\',\n    \'password\' => \'cornflakes\'\n));\n```\n\n##JavaScript\n\n```javascript\nvar validator = new Validator(schema);\n\nvar errors = validator.test({\n    username: \'bob\',\n    password: \'cornflakes\'\n});\n```\n',
+88 silly publish   readmeFilename: 'README.md',
+88 silly publish   _id: 'the_validator@0.1.9',
+88 silly publish   dist: { shasum: '7af7379be322909d458ba85694cc739bbca278c4' },
+88 silly publish   _from: '.' }
+89 verbose url raw the_validator
+90 verbose url resolving [ 'https://registry.npmjs.org/', './the_validator' ]
+91 verbose url resolved https://registry.npmjs.org/the_validator
+92 info trying registry request attempt 1 at 12:52:40
+93 http PUT https://registry.npmjs.org/the_validator
+94 http 403 https://registry.npmjs.org/the_validator
+95 info trying registry request attempt 1 at 12:52:41
+96 http PUT https://registry.npmjs.org/the_validator
+97 http 201 https://registry.npmjs.org/the_validator
+98 verbose url raw the_validator
+99 verbose url resolving [ 'https://registry.npmjs.org/', './the_validator' ]
+100 verbose url resolved https://registry.npmjs.org/the_validator
+101 info trying registry request attempt 1 at 12:52:41
+102 http GET https://registry.npmjs.org/the_validator
+103 http 200 https://registry.npmjs.org/the_validator
+104 error publish fail Cannot publish over existing version.
+104 error publish fail Update the 'version' field in package.json and try again.
+104 error publish fail
+104 error publish fail If the previous version was published in error, see:
+104 error publish fail     npm help unpublish
+104 error publish fail
+104 error publish fail To automatically increment version numbers, see:
+104 error publish fail     npm help version
+105 error System Linux 3.11.0-19-generic
+106 error command "/usr/bin/node" "/usr/bin/npm" "publish"
+107 error cwd /var/www/validator
+108 error node -v v0.10.21
+109 error npm -v 1.3.11
+110 error code EPUBLISHCONFLICT
+111 verbose exit [ 1, true ]
