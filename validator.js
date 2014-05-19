@@ -1,3 +1,6 @@
+// The Validator
+// https://github.com/DubFriend/validator
+
 (function () {
     'use strict';
 

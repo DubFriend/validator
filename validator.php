@@ -1,4 +1,7 @@
 <?php
+// The Validator
+// https://github.com/DubFriend/validator
+
 class ValidatorException extends Exception {}
 
 class ValidatorTestWrapper {
