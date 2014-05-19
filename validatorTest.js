@@ -84,6 +84,26 @@ module.exports = {
         test.done();
     },
 
+    testRegexContainsForwardSlash: function (test) {
+        var validator = new Validator({
+            foo: [
+                { "regex:/^beggining\/end$/": "fail" }
+            ]
+        });
+
+        test.deepEqual(
+            validator.test({ foo: 'beggining/end' }), {},
+            'pass ok'
+        );
+
+        test.deepEqual(
+            validator.test({ foo: 'wrong' }), { foo: 'fail' },
+            'fail ok'
+        );
+
+        test.done();
+    },
+
     testTypeNumberPass: function (test) {
         test.deepEqual(this.validateExtended({ number: 5 }), {});
         test.done();

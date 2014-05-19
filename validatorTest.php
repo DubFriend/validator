@@ -74,6 +74,24 @@ class ValidateTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
+	function testRegexContainsForwardSlash() {
+        $validator = new Validator(array(
+            'foo' =>  array(
+                array("regex:/^beggining\/end$/" => "fail" )
+            )
+        ));
+
+        $this->assertEquals(
+            $validator->test(array('foo' => 'beggining/end' )), array(),
+            'pass ok'
+        );
+
+        $this->assertEquals(
+            $validator->test(array('foo' => 'wrong' )), array('foo' => 'fail' ),
+            'fail ok'
+        );
+    }
+
 	function testTypeNumberPass() {
 		$this->assertEquals(
 			array(),

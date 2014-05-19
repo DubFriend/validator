@@ -48,6 +48,10 @@
         });
     };
 
+    var last = function (array) {
+        return array[array.length - 1];
+    };
+
     var createValidatorTestWrapper = function (test) {
         return {
             message: function () {
@@ -87,9 +91,20 @@
         },
 
         regex: function (valueToTest, testValue) {
-            var pieces = testValue.split('/');
-            var pattern = pieces[1];
-            var modifiers = pieces[2] || undefined;
+            var pieces = testValue.split('/'),
+                modifiers = last(pieces),
+                pattern;
+
+            if(pieces.length) {
+                pieces.pop();
+            }
+
+            if(pieces.length) {
+                pieces.shift();
+            }
+
+            pattern = pieces.join('/');
+
             return new RegExp(pattern, modifiers).test(valueToTest);
         },
 
