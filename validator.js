@@ -127,19 +127,19 @@
         },
 
         '<': function (valueToTest, testValue) {
-            return valueToTest < testValue;
+            return Number(valueToTest) < Number(testValue);
         },
 
         '<=': function (valueToTest, testValue) {
-            return valueToTest <= testValue;
+            return Number(valueToTest) <= Number(testValue);
         },
 
         '>': function (valueToTest, testValue) {
-            return valueToTest > testValue;
+            return Number(valueToTest) > Number(testValue);
         },
 
         '>=': function (valueToTest, testValue) {
-            return valueToTest >= testValue;
+            return Number(valueToTest) >= Number(testValue);
         },
 
         '==': function (valueToTest, testValue) {
