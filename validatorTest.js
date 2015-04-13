@@ -23,7 +23,7 @@ module.exports = {
     setUp: function (done) {
         this.validator = new Validator(testData);
         this.validateExtended = function (extraData) {
-            return this.validator.test(union({username: 'pass' }, extraData));
+            return this.validator.test(union({username: 'pass' }, extraData || {}));
         };
         done();
     },
@@ -72,6 +72,36 @@ module.exports = {
     testUsernameMaximumLengthPass: function (test) {
         test.deepEqual(
             this.validator.test({ username: '1234567890' }), {}
+        );
+        test.done();
+    },
+
+    testSometimesKeyIsUndefined: function (test) {
+        test.deepEqual(this.validateExtended(), {});
+        test.done();
+    },
+
+    testSometimesKeyIsFalseyValue: function (test) {
+        test.deepEqual(
+            this.validateExtended({ sometimes: "" }).sometimes,
+            "must be truthy if key exists"
+        );
+        test.deepEqual(
+            this.validateExtended({ sometimes: 0 }).sometimes,
+            "must be truthy if key exists"
+        );
+        test.deepEqual(
+            this.validateExtended({ sometimes: '0' }).sometimes,
+            "3 minimum",
+            'string zero is truthy'
+        );
+        test.done();
+    },
+
+    testSometimesKeyIsTooShort: function (test) {
+        test.deepEqual(
+            this.validateExtended({ sometimes: "ab" }).sometimes,
+            "3 minimum"
         );
         test.done();
     },
@@ -333,7 +363,7 @@ module.exports = {
     },
 
     testAlphanumericFail: function (test) {
-        test.ok(this.validateExtended({ alphanumeric: 'a 1b' }), {});
+        test.ok(this.validateExtended({ alphanumeric: 'a 1b' }).alphanumeric);
         test.done();
     }
 };

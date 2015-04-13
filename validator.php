@@ -77,6 +77,10 @@ class Validator {
         return $valueToTest ? true : false;
     }
 
+    private function sometimes($valueToTest) {
+        return $this->required($valueToTest);
+    }
+
     private function type($valueToTest, $testValue) {
         $type = gettype($valueToTest);
         switch($testValue) {
@@ -169,19 +173,31 @@ class Validator {
     }
     // TEST FUNCTIONS END
 
+
     function test(array $dataToTest) {
         $errors = array();
+
+        $runTestsOnName = function ($tests, $name) use (&$errors, $dataToTest) {
+            foreach($tests as $testObject) {
+                if(!$this->isTestPass($dataToTest[$name], $testObject)) {
+                    $errors[$name] = $testObject->message();
+                    break;
+                }
+            }
+        };
+
         foreach($this->schema as $name => $tests) {
             if(array_key_exists($name, $dataToTest) && $dataToTest[$name] !== '') {
-                foreach($tests as $testObject) {
-                    if(!$this->isTestPass($dataToTest[$name], $testObject)) {
-                        $errors[$name] = $testObject->message();
-                        break;
-                    }
-                }
+                $runTestsOnName($tests, $name);
             }
             else if($tests[0]->name() === 'required') {
                 $errors[$name] = $tests[0]->message();
+            }
+            else if(
+                $tests[0]->name() === 'sometimes' &&
+                array_key_exists($name, $dataToTest)
+            ) {
+                $runTestsOnName($tests, $name);
             }
         }
         return $errors;

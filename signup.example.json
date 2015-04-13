@@ -6,6 +6,11 @@
 		{ "regex:/^[a-zA-Z0-9]*$/": "alphanumeric only" }
 	],
 
+	"sometimes": [
+		{ "sometimes": "must be truthy if key exists" },
+		{ "minimumLength:3": "3 minimum"}
+	],
+
 	"number": [
 		{ "type:number": "must be of type number" }
 	],

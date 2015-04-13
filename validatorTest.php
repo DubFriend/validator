@@ -67,6 +67,35 @@ class ValidateTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
+	function testSometimesKeyIsUndefined() {
+     	$this->assertEquals(
+     		array(), $this->validateExtended()
+     	);
+    }
+
+    function testSometimesKeyIsFalseyValue() {
+        $this->assertEquals(
+        	$this->validateExtended(array('sometimes' => '')),
+        	array('sometimes' => 'must be truthy if key exists')
+        );
+        $this->assertEquals(
+        	$this->validateExtended(array('sometimes' => 0)),
+        	array('sometimes' => 'must be truthy if key exists')
+        );
+        // $this->assertEquals(
+        // 	$this->validateExtended(array('sometimes' => '0')),
+        // 	array('sometimes' => '3 minimum'),
+        // 	'string zero is truthy'
+        // );
+    }
+
+    function testSometimesKeyIsTooShort() {
+        $this->assertEquals(
+            $this->validateExtended(array( 'sometimes' => "ab")),
+            array('sometimes' => "3 minimum")
+        );
+    }
+
 	function testRegexFail() {
 		$this->assertEquals(
 			array('username' => 'alphanumeric only'),

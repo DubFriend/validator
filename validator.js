@@ -14,6 +14,7 @@
                 callback(collection[i], i, collection);
             }
         }
+
     };
 
     var mapToArray = function (collection, callback) {
@@ -83,6 +84,10 @@
     var testMethods = {
         required: function (valueToTest) {
             return valueToTest ? true : false;
+        },
+
+        sometimes: function (valueToTest) {
+            return valueToTest === undefined || testMethods.required(valueToTest);
         },
 
         minimumLength: function (valueToTest, testValue) {
@@ -193,22 +198,31 @@
 
         return {
             test: function (dataToTest) {
-                var errors = {};
-                foreach(schema, function (tests, name) {
-                    if(dataToTest[name] !== undefined && dataToTest[name] !== '') {
-                        var testObject;
-                        for(var i = 0; i < tests.length; i += 1) {
+                var errors = {},
+                    runTestsOnName = function (tests, name) {
+                        var i, testObject;
+                        for(i = 0; i < tests.length; i += 1) {
                             testObject = tests[i];
                             if(!isTestPass(dataToTest[name], testObject)) {
                                 errors[name] = testObject.message();
                                 break;
                             }
                         }
+                    };
+
+                foreach(schema, function (tests, name) {
+                    var testObject, i, fieldError;
+                    if(dataToTest[name] !== undefined && dataToTest[name] !== '') {
+                        runTestsOnName(tests, name);
                     }
                     else if(tests[0].name() === 'required') {
                         errors[name] = tests[0].message();
                     }
+                    else if(tests[0].name() === 'sometimes' && dataToTest[name] !== undefined) {
+                        runTestsOnName(tests, name);
+                    }
                 });
+
                 return errors;
             }
         };
