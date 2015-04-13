@@ -74,7 +74,7 @@ class Validator {
 
     // TEST FUNCTIONS START
     private function required($valueToTest) {
-        return $valueToTest ? true : false;
+        return $valueToTest || $valueToTest === '0';
     }
 
     private function sometimes($valueToTest) {
@@ -187,11 +187,13 @@ class Validator {
         };
 
         foreach($this->schema as $name => $tests) {
-            if(array_key_exists($name, $dataToTest) && $dataToTest[$name] !== '') {
+            if(
+                array_key_exists($name, $dataToTest) &&
+                $dataToTest[$name] !== '' ||
+                array_key_exists($name, $dataToTest) &&
+                $dataToTest[$name] === '0'
+            ) {
                 $runTestsOnName($tests, $name);
-            }
-            else if($tests[0]->name() === 'required') {
-                $errors[$name] = $tests[0]->message();
             }
             else if(
                 $tests[0]->name() === 'sometimes' &&
@@ -199,7 +201,11 @@ class Validator {
             ) {
                 $runTestsOnName($tests, $name);
             }
+            else if($tests[0]->name() === 'required') {
+                $errors[$name] = $tests[0]->message();
+            }
         }
+
         return $errors;
     }
 }
