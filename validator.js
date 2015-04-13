@@ -86,6 +86,10 @@
             return valueToTest ? true : false;
         },
 
+        illegalField: function (valueToTest) {
+            return valueToTest === undefined;
+        },
+
         sometimes: function (valueToTest) {
             return valueToTest === undefined || testMethods.required(valueToTest);
         },
@@ -212,7 +216,11 @@
 
                 foreach(schema, function (tests, name) {
                     var testObject, i, fieldError;
-                    if(dataToTest[name] !== undefined && dataToTest[name] !== '') {
+
+                    if(dataToTest[name] !== undefined && tests[0].name() === 'illegalField') {
+                        runTestsOnName(tests, name);
+                    }
+                    else if(dataToTest[name] !== undefined && dataToTest[name] !== '') {
                         runTestsOnName(tests, name);
                     }
                     else if(tests[0].name() === 'required') {

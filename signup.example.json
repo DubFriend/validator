@@ -11,6 +11,10 @@
 		{ "minimumLength:3": "3 minimum"}
 	],
 
+	"illegalField": [
+		{ "illegalField": "illegal field" }
+	],
+
 	"number": [
 		{ "type:number": "must be of type number" }
 	],

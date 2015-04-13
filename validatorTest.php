@@ -96,6 +96,13 @@ class ValidateTest extends PHPUnit_Framework_TestCase {
         );
     }
 
+    function testIllegalField() {
+        $this->assertEquals(
+            $this->validateExtended(array('illegalField' => "")),
+            array("illegalField" => "illegal field")
+        );
+    }
+
     function testRegexFail() {
         $this->assertEquals(
             array('username' => 'alphanumeric only'),

@@ -37,6 +37,24 @@ sometimes must be the first test of a given fieldName.  One may use either
 `required` or `sometimes` as the first rule but not both.  "sometimes" will
 run tests if the given data key exists.  If the data key exists "sometimes" then
 follows the same logic as "required".
+```json
+{
+    "firstName": [
+        { "sometimes": "cannot update firstName with a falsey value" }
+    ]
+}
+```
+
+###illegalField
+ensures that the test data does not contain the given key.  illegalField should
+be the first and only test on a field.
+```json
+{
+    "internalField": [
+        { "illegalField": "You are not allowed to edit the internalField" }
+    ]
+}
+```
 
 ###minimumLength
 string must be of the specified minum length

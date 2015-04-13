@@ -106,6 +106,14 @@ module.exports = {
         test.done();
     },
 
+    testIllegalField: function (test) {
+        test.strictEqual(
+            this.validateExtended({ illegalField: "" }).illegalField,
+            "illegal field"
+        );
+        test.done();
+    },
+
     testRegexFail: function (test) {
         test.deepEqual(
             this.validator.test({ username: 'f@il' }),

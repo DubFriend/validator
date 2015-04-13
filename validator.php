@@ -187,7 +187,12 @@ class Validator {
         };
 
         foreach($this->schema as $name => $tests) {
-            if(
+            if($tests[0]->name() === 'illegalField') {
+                if(array_key_exists($name, $dataToTest)) {
+                    $errors[$name] = $tests[0]->message();
+                }
+            }
+            else if(
                 array_key_exists($name, $dataToTest) &&
                 $dataToTest[$name] !== '' ||
                 array_key_exists($name, $dataToTest) &&
