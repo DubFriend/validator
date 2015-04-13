@@ -32,6 +32,12 @@ required must be the first test of a given fieldName.  Passes if the given field
 }
 ```
 
+###sometimes
+sometimes must be the first test of a given fieldName.  One may use either
+`required` or `sometimes` as the first rule but not both.  "sometimes" will
+run tests if the given data key exists.  If the data key exists "sometimes" then
+follows the same logic as "required".
+
 ###minimumLength
 string must be of the specified minum length
 ```json
