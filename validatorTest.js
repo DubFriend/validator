@@ -84,7 +84,6 @@ module.exports = {
     },
 
     testSometimesIsEmptyString: function (test) {
-        // console.log(this.validateExtended({ sometimes: "" }));
         test.deepEqual(
             this.validateExtended({ sometimes: "" }),
             {}

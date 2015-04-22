@@ -26,7 +26,6 @@
                 callback(collection[i], i, collection);
             }
         }
-
     };
 
     var mapToArray = function (collection, callback) {
@@ -100,9 +99,6 @@
 
         sometimes: function (valueToTest) {
             return valueToTest !== undefined;
-            // return testMethods.required(valueToTest);
-            // return valueToTest !== undefined && testMethods.required()
-            // return valueToTest === undefined || testMethods.required(valueToTest);
         },
 
         illegalField: function (valueToTest) {
@@ -110,7 +106,6 @@
         },
 
         minimumLength: function (valueToTest, testValue) {
-            // return valueToTest.length >= testValue;
             return isArrayOrString(valueToTest) && valueToTest.length >= testValue;
         },
 
@@ -134,24 +129,6 @@
             pattern = pieces.join('/');
 
             return new RegExp(pattern, modifiers).test(valueToTest);
-        },
-
-        type: function (valueToTest, testValue) {
-            var typeOf = typeof valueToTest;
-            switch(testValue) {
-                case 'number':
-                    return typeOf === 'number';
-                case 'string':
-                    return typeOf === 'string';
-                case 'boolean':
-                    return typeOf === 'boolean';
-                case 'object':
-                    return valueToTest !== null && typeOf === 'object';
-                case 'null':
-                    return valueToTest === null;
-                default:
-                    throw 'invalid type ' + testValue;
-            }
         },
 
         '<': function (valueToTest, testValue) {
@@ -186,7 +163,6 @@
             }
             else {
                 return false;
-                // throw 'match must recieve an array with two values';
             }
         },
 

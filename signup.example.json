@@ -15,38 +15,22 @@
 		{ "illegalField": "illegal field" }
 	],
 
-	"number": [
-		{ "type:number": "must be of type number" }
-	],
-
-	"string": [
-		{ "type:string": "must be of type string" }
-	],
-
-	"boolean": [
-		{ "type:boolean": "must be of type boolean" }
-	],
-
-	"object": [
-		{ "type:object": "must be of type object" }
-	],
-
-	"null": [
-		{ "type:null": "must be of type null" }
-	],
-
 	"lessThan": [
 		{ "<:0": "must be less than zero" }
 	],
+
 	"lessThanOrEqualTo": [
 		{ "<=:0": "must be less than or equal to zero" }
 	],
+
 	"greaterThan": [
 		{ ">:0": "must be greater than zero" }
 	],
+
 	"greaterThanOrEqualTo": [
 		{ ">=:0": "must be greater than or equal to zero" }
 	],
+
 	"equalTo": [
 		{ "==:0": "must be equal to zero" }
 	],
