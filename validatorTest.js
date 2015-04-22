@@ -27,10 +27,12 @@ module.exports = {
         };
         done();
     },
+
     testUserNamePass: function (test) {
         test.deepEqual(this.validator.test({ username: 'user' }), {});
         test.done();
     },
+
 
     testSkipTestIfEmptyStringAndNotRequired: function (test) {
         test.deepEqual(this.validateExtended({ email: '' }), {});
@@ -40,7 +42,7 @@ module.exports = {
     testFailRequiredFalsyValue: function (test) {
         test.deepEqual(
             this.validator.test({ username: '' }),
-            { username: 'username required' }
+            { username: ['username required', '3 minimum'] }
         );
         test.done();
     },
@@ -48,7 +50,7 @@ module.exports = {
     testFailRequiredKeyNotPresent: function (test) {
         test.deepEqual(
             this.validator.test({}),
-            { username: 'username required' }
+            { username: ['username required', '3 minimum', '10 maximum'] }
         );
         test.done();
     },
@@ -56,7 +58,7 @@ module.exports = {
     testUsernameMinimumLengthFail: function (test) {
         test.deepEqual(
             this.validator.test({ username: 'ab' }),
-            { username: '3 minimum' }
+            { username: ['3 minimum'] }
         );
         test.done();
     },
@@ -64,7 +66,7 @@ module.exports = {
     testUsernameMaximumLengthFail: function (test) {
         test.deepEqual(
             this.validator.test({ username: '12345678901' }),
-            { username: '10 maximum' }
+            { username: ['10 maximum'] }
         );
         test.done();
     },
@@ -76,24 +78,40 @@ module.exports = {
         test.done();
     },
 
-    testSometimesKeyIsUndefined: function (test) {
+    testSometimesIsUndefined: function (test) {
         test.deepEqual(this.validateExtended(), {});
         test.done();
     },
 
-    testSometimesKeyIsFalseyValue: function (test) {
+    testSometimesIsEmptyString: function (test) {
+        // console.log(this.validateExtended({ sometimes: "" }));
         test.deepEqual(
-            this.validateExtended({ sometimes: "" }).sometimes,
-            "must be truthy if key exists"
+            this.validateExtended({ sometimes: "" }),
+            {}
         );
+        test.done()
+    },
+
+    testSometimesIsZero: function (test) {
+        test.deepEqual(
+            this.validateExtended({ sometimes: 0 }),
+            { sometimes: ['3 minimum'] }
+        );
+        test.done();
+    },
+
+    testSometimesIsNumberOne: function (test) {
+        test.deepEqual(
+            this.validateExtended({ sometimes: 1 }).sometimes,
+            ['3 minimum']
+        );
+        test.done();
+    },
+
+    testSometimesIsZeroString: function (test) {
         test.deepEqual(
             this.validateExtended({ sometimes: 0 }).sometimes,
-            "must be truthy if key exists"
-        );
-        test.deepEqual(
-            this.validateExtended({ sometimes: '0' }).sometimes,
-            "3 minimum",
-            'string zero is truthy'
+            ['3 minimum']
         );
         test.done();
     },
@@ -101,15 +119,15 @@ module.exports = {
     testSometimesKeyIsTooShort: function (test) {
         test.deepEqual(
             this.validateExtended({ sometimes: "ab" }).sometimes,
-            "3 minimum"
+            ["3 minimum"]
         );
         test.done();
     },
 
     testIllegalField: function (test) {
-        test.strictEqual(
+        test.deepEqual(
             this.validateExtended({ illegalField: "" }).illegalField,
-            "illegal field"
+            ["illegal field"]
         );
         test.done();
     },
@@ -117,7 +135,7 @@ module.exports = {
     testRegexFail: function (test) {
         test.deepEqual(
             this.validator.test({ username: 'f@il' }),
-            { username: 'alphanumeric only' }
+            { username: ['alphanumeric only'] }
         );
         test.done();
     },
@@ -135,76 +153,10 @@ module.exports = {
         );
 
         test.deepEqual(
-            validator.test({ foo: 'wrong' }), { foo: 'fail' },
+            validator.test({ foo: 'wrong' }), { foo: ['fail'] },
             'fail ok'
         );
 
-        test.done();
-    },
-
-    testTypeNumberPass: function (test) {
-        test.deepEqual(this.validateExtended({ number: 5 }), {});
-        test.done();
-    },
-
-    testTypeNumberFail: function (test) {
-        test.deepEqual(
-            this.validateExtended({ number: '5' }),
-            { number: 'must be of type number' }
-        );
-        test.done();
-    },
-
-    testTypeStringPass: function (test) {
-        test.deepEqual(this.validateExtended({ string: 'foo' }), {});
-        test.done();
-    },
-
-    testTypeStringFail: function (test) {
-        test.deepEqual(
-            this.validateExtended({ string: true }),
-            { string: 'must be of type string' }
-        );
-        test.done();
-    },
-
-    testTypeBooleanPass: function (test) {
-        test.deepEqual(this.validateExtended({ boolean: false }), {});
-        test.done();
-    },
-
-    testTypeBooleanFail: function (test) {
-        test.deepEqual(
-            this.validateExtended({ boolean: 0 }),
-            { boolean: 'must be of type boolean' }
-        );
-        test.done();
-    },
-
-    testTypeObjectPass: function (test) {
-        test.deepEqual(this.validateExtended({ object: []}), {});
-        test.deepEqual(this.validateExtended({ object: {}}), {});
-        test.done();
-    },
-
-    testTypeObjectFail: function (test) {
-        test.deepEqual(
-            this.validateExtended({ object: null }),
-            { 'object': 'must be of type object' }
-        );
-        test.done();
-    },
-
-    testTypeNullPass: function (test) {
-        test.deepEqual(this.validateExtended({ 'null': null }), {});
-        test.done();
-    },
-
-    testTypeNullFail: function (test) {
-        test.deepEqual(
-            this.validateExtended({ 'null': 0 }),
-            { 'null': 'must be of type null' }
-        );
         test.done();
     },
 
@@ -216,7 +168,7 @@ module.exports = {
     testLessThanFail: function (test) {
         test.deepEqual(
             this.validateExtended({ lessThan: 0 }),
-            { lessThan: 'must be less than zero' }
+            { lessThan: ['must be less than zero'] }
         );
         test.done();
     },
@@ -229,12 +181,10 @@ module.exports = {
     testLessThanOrEqualToFail: function (test) {
         test.deepEqual(
             this.validateExtended({ lessThanOrEqualTo: 1 }),
-            { lessThanOrEqualTo: 'must be less than or equal to zero' }
+            { lessThanOrEqualTo: ['must be less than or equal to zero'] }
         );
         test.done();
     },
-
-
 
     testGreaterThanPass: function (test) {
         test.deepEqual(this.validateExtended({ greaterThan: 1 }), {});
@@ -244,20 +194,20 @@ module.exports = {
     testGreaterThanFail: function (test) {
         test.deepEqual(
             this.validateExtended({ greaterThan: 0 }),
-            { greaterThan: 'must be greater than zero' }
+            { greaterThan: ['must be greater than zero'] }
         );
         test.done();
     },
 
     testGreaterThanOrEqualToPass: function (test) {
-        test.deepEqual(this.validateExtended({ greaterThanOrEqualTo: 0 }), {});
+        test.deepEqual(this.validateExtended({ greaterThanOrEqualTo: '0' }), {});
         test.done();
     },
 
     testGreaterThanOrEqualToFail: function (test) {
         test.deepEqual(
             this.validateExtended({ greaterThanOrEqualTo: -1 }),
-            { greaterThanOrEqualTo: 'must be greater than or equal to zero' }
+            { greaterThanOrEqualTo: ['must be greater than or equal to zero'] }
         );
         test.done();
     },
@@ -270,7 +220,7 @@ module.exports = {
     testEqualToFail: function (test) {
         test.deepEqual(
             this.validateExtended({ equalTo: 1 }),
-            { equalTo: 'must be equal to zero' }
+            { equalTo: ['must be equal to zero'] }
         );
         test.done();
     },
@@ -283,7 +233,7 @@ module.exports = {
     testEmailFail: function (test) {
         test.deepEqual(
             this.validateExtended({ email: 'wrong' }),
-            { email: 'bad email format' }
+            { email: ['bad email format'] }
         );
         test.done();
     },
@@ -296,17 +246,7 @@ module.exports = {
     testMatchFail: function (test) {
         test.deepEqual(
             this.validateExtended({ match: [1, 2] }),
-            { match: 'values must match' }
-        );
-        test.done();
-    },
-
-    testMatchInproperFormat: function (test) {
-        test.throws(
-            function () {
-                this.validateExtended({ match: [1] });
-            },
-            'match must recieve an array with two values'
+            { match: ['values must match'] }
         );
         test.done();
     },
@@ -316,7 +256,7 @@ module.exports = {
         test.deepEqual(this.validateExtended({ enumerated: 'b' }), {});
         test.deepEqual(
             this.validateExtended({ enumerated: 'c' }),
-            { enumerated: "value not in enumerated set" }
+            { enumerated: ["value not in enumerated set"] }
         );
         test.done();
     },
