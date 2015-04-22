@@ -189,16 +189,25 @@
     };
 
     var deepStringify = function (data) {
+        var stringifiedData;
+
+        if(isArray(data)) {
+            stringifiedData = [];
+        }
+        else if(isObject(data)) {
+            stringifiedData = {};
+        }
+
         if(isArray(data) || isObject(data)) {
             foreach(data, function (val, key) {
-                data[key] = deepStringify(val);
+                stringifiedData[key] = deepStringify(val);
             });
         }
         else {
-            data = String(data);
+            stringifiedData = String(data);
         }
 
-        return data;
+        return stringifiedData;
     };
 
     var Validator = function (rawSchema) {
@@ -209,19 +218,8 @@
         return {
             test: function (dataToTest) {
                 dataToTest = deepStringify(dataToTest);
-                var errors = {},
-                    runTestsOnName = function (tests, name) {
-                        var i, testObject;
-                        for(i = 0; i < tests.length; i += 1) {
-                            testObject = tests[i];
-                            if(!isTestPass(dataToTest[name], testObject)) {
-                                if(!errors[name]) {
-                                    errors[name] = [];
-                                }
-                                errors[name].push(testObject.message());
-                            }
-                        }
-                    };
+
+                var errors = {};
 
                 foreach(schema, function runTestsOnGroup (tests, name) {
                     if(tests[0].name() === 'sometimes') {
@@ -230,14 +228,19 @@
                             runTestsOnGroup(tests, name);
                         }
                     }
-                    else if(tests[0].name() === 'required') {
-                        runTestsOnName(tests, name);
-                    }
-                    else if (dataToTest[name] !== undefined && tests[0].name() === 'illegalField') {
-                        runTestsOnName(tests, name);
-                    }
-                    else if(dataToTest[name]) {
-                        runTestsOnName(tests, name);
+                    else if(
+                        tests[0].name() === 'required' ||
+                        (dataToTest[name] !== undefined && tests[0].name() === 'illegalField') ||
+                        dataToTest[name]
+                    ) {
+                        foreach(tests, function (testObject) {
+                            if(!isTestPass(dataToTest[name], testObject)) {
+                                if(!errors[name]) {
+                                    errors[name] = [];
+                                }
+                                errors[name].push(testObject.message());
+                            }
+                        });
                     }
                 });
 

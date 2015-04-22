@@ -177,6 +177,13 @@ module.exports = {
         test.done();
     },
 
+    testDoesNotModifyTheInput: function (test) {
+        var input = { lessThanOrEqualTo: 0 };
+        this.validateExtended({ lessThanOrEqualTo: 0 });
+        test.deepEqual(input, { lessThanOrEqualTo: 0 });
+        test.done();
+    },
+
     testLessThanOrEqualToFail: function (test) {
         test.deepEqual(
             this.validateExtended({ lessThanOrEqualTo: 1 }),
