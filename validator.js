@@ -1,6 +1,5 @@
 // The Validator
 // https://github.com/DubFriend/validator
-
 (function () {
     'use strict';
 
@@ -67,178 +66,255 @@
         return array[array.length - 1];
     };
 
-    var createValidatorTestWrapper = function (test) {
-        return {
-            message: function () {
-                return values(test)[0];
+    var testTypes = {
+        required: {
+            test: function (valueToTest) {
+                return valueToTest ? true : false;
             },
-            description: function () {
-                return keys(test)[0];
+            message: function (name, testValue) {
+                return name + ' is required';
+            }
+        },
+
+        illegalField: {
+            test: function (valueToTest) {
+                return valueToTest === undefined;
             },
-            name: function () {
-                return this.description().split(':')[0];
+            message: function (name, testValue) {
+                return name + ' is an illegal field';
+            }
+        },
+
+        minimumLength: {
+            test: function (valueToTest, testValue) {
+                return isArrayOrString(valueToTest) &&
+                    valueToTest.length >= testValue;
             },
-            value: function () {
-                var pieces = this.description().split(':');
-                if(pieces.length > 1) {
-                    pieces.shift();
-                    return pieces.join(':');
+            message: function (name, testValue) {
+                return name + ' must be at least ' + testValue + ' characters long';
+            }
+        },
+
+        maximumLength: {
+            test: function (valueToTest, testValue) {
+                return isArrayOrString(valueToTest) &&
+                    valueToTest.length <= testValue;
+            },
+            message: function (name, testValue) {
+                return name + ' cannot exceed a length of ' + testValue + ' characters';
+            }
+        },
+
+        regex: {
+            test: function (valueToTest, testValue) {
+                var pieces = testValue.split('/'),
+                    modifiers = last(pieces),
+                    pattern;
+
+                if(pieces.length) {
+                    pieces.pop();
                 }
-            }
-        };
-    };
 
-    var isTestPass = function (valueToTest, testObject) {
-        return testMethods[testObject.name()](valueToTest, testObject.value());
-    };
+                if(pieces.length) {
+                    pieces.shift();
+                }
 
-    var testMethods = {
-        required: function (valueToTest) {
-            return valueToTest ? true : false;
-        },
+                pattern = pieces.join('/');
 
-        sometimes: function (valueToTest) {
-            return valueToTest !== undefined;
-        },
-
-        illegalField: function (valueToTest) {
-            return valueToTest === undefined;
-        },
-
-        minimumLength: function (valueToTest, testValue) {
-            return isArrayOrString(valueToTest) && valueToTest.length >= testValue;
-        },
-
-        maximumLength: function (valueToTest, testValue) {
-            return isArrayOrString(valueToTest) && valueToTest.length <= testValue;
-        },
-
-        regex: function (valueToTest, testValue) {
-            var pieces = testValue.split('/'),
-                modifiers = last(pieces),
-                pattern;
-
-            if(pieces.length) {
-                pieces.pop();
-            }
-
-            if(pieces.length) {
-                pieces.shift();
-            }
-
-            pattern = pieces.join('/');
-
-            return new RegExp(pattern, modifiers).test(valueToTest);
-        },
-
-        '<': function (valueToTest, testValue) {
-            return Number(valueToTest) < Number(testValue);
-        },
-
-        '<=': function (valueToTest, testValue) {
-            return Number(valueToTest) <= Number(testValue);
-        },
-
-        '>': function (valueToTest, testValue) {
-            return Number(valueToTest) > Number(testValue);
-        },
-
-        '>=': function (valueToTest, testValue) {
-            return Number(valueToTest) >= Number(testValue);
-        },
-
-        '==': function (valueToTest, testValue) {
-            return valueToTest == testValue;
-        },
-
-        email: function (valueToTest) {
-            return (
-                /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
-            ).test(valueToTest);
-        },
-
-        match: function (valueToTest) {
-            if(isArray(valueToTest) && valueToTest.length === 2) {
-                return valueToTest[0] == valueToTest[1];
-            }
-            else {
-                return false;
+                return new RegExp(pattern, modifiers).test(valueToTest);
+            },
+            message: function (name, testValue) {
+                return name + ' is not properly formatted';
             }
         },
 
-        enumerated: function (valueToTest, testValue) {
-            var acceptedValues = testValue.split(',');
-            return acceptedValues.indexOf(valueToTest) !== -1;
+        '<': {
+            test: function (valueToTest, testValue) {
+                return Number(valueToTest) < Number(testValue);
+            },
+            message: function (name, testValue) {
+                return name + ' must be less than ' + testValue;
+            }
         },
 
-        numeric: function (valueToTest) {
-            return (/^[0-9]*\.?[0-9]*$/).test(valueToTest);
+        '<=': {
+            test: function (valueToTest, testValue) {
+                return Number(valueToTest) <= Number(testValue);
+            },
+            message: function (name, testValue) {
+                return name + ' must be less than or equal to ' + testValue;
+            }
         },
 
-        integer: function (valueToTest) {
-            return (/^[0-9]*$/).test(valueToTest);
+        '>': {
+            test: function (valueToTest, testValue) {
+                return Number(valueToTest) > Number(testValue);
+            },
+            message: function (name, testValue) {
+                return name + ' must be greater than ' + testValue;
+            }
         },
 
-        alphabetical: function (valueToTest) {
-            return (/^[a-zA-Z]*$/).test(valueToTest);
+        '>=': {
+            test: function (valueToTest, testValue) {
+                return Number(valueToTest) >= Number(testValue);
+            },
+            message: function (name, testValue) {
+                return name + ' must be greater than or equal to ' + testValue;
+            }
         },
 
-        alphanumeric: function (valueToTest) {
-            return (/^[a-zA-Z0-9]*$/).test(valueToTest);
+        '==': {
+            test: function (valueToTest, testValue) {
+                return valueToTest == testValue;
+            },
+            message: function (name, testValue) {
+                return name + ' must be equal to ' + testValue;
+            }
+        },
+
+        email: {
+            test: function (valueToTest) {
+                return (
+                    /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+                ).test(valueToTest);
+            },
+            message: function (name, testValue) {
+                return name + ' must be an email address';
+            }
+        },
+
+        match: {
+            test: function (valueToTest) {
+                return isArray(valueToTest) && valueToTest.length === 2 ?
+                    valueToTest[0] == valueToTest[1] : false;
+            },
+            message: function (name, testValue) {
+                return name + ' must have matching values';
+            }
+        },
+
+        enumerated: {
+            test: function (valueToTest, testValue) {
+                return testValue.split(',').indexOf(valueToTest) !== -1;
+            },
+            message: function (name, testValue) {
+                return 'invalid value for ' + name;
+            }
+        },
+
+        numeric: {
+            test: function (valueToTest) {
+                return (/^[0-9]*\.?[0-9]*$/).test(valueToTest);
+            },
+            message: function (name, testValue) {
+                return name + ' must be a number';
+            }
+        },
+
+        integer: {
+            test: function (valueToTest) {
+                return (/^[0-9]*$/).test(valueToTest);
+            },
+            message: function (name, testValue) {
+                return name + ' must be an integer';
+            }
+        },
+
+        alphabetical: {
+            test: function (valueToTest) {
+                return (/^[a-zA-Z]*$/).test(valueToTest);
+            },
+            message: function (name, testValue) {
+                return name + ' must contain alphabetic letters only';
+            }
+        },
+
+        alphanumeric: {
+            test: function (valueToTest) {
+                return (/^[a-zA-Z0-9]*$/).test(valueToTest);
+            },
+            message: function (name, testValue) {
+                return name + ' must contain only letters and numbers';
+            }
         }
     };
 
     var deepStringify = function (data) {
-        var stringifiedData;
-
-        if(isArray(data)) {
-            stringifiedData = [];
-        }
-        else if(isObject(data)) {
-            stringifiedData = {};
-        }
-
         if(isArray(data) || isObject(data)) {
-            foreach(data, function (val, key) {
-                stringifiedData[key] = deepStringify(val);
-            });
+            return map(data, deepStringify);
+        }
+        else if(data === undefined || data === null) {
+            return '';
         }
         else {
-            stringifiedData = String(data);
+            return String(data);
         }
-
-        return stringifiedData;
     };
 
     var Validator = function (rawSchema) {
-        var schema = map(rawSchema, function (tests, fieldName) {
-            return map(tests, createValidatorTestWrapper);
+        var schema = map(rawSchema, function  (tests, fieldName) {
+            return map(isArray(tests) ? tests : [tests], function (test) {
+                return {
+                    message: function () {
+                        if(isObject(test)) {
+                            return values(test)[0];
+                        }
+                        else {
+                            return testTypes[this.name()].message(fieldName, this.value());
+                        }
+                    },
+                    description: function () {
+                        if(isObject(test)) {
+                            return keys(test)[0];
+                        }
+                        else {
+                            return test;
+                        }
+                    },
+                    name: function () {
+                        return this.description().split(':')[0];
+                    },
+                    value: function () {
+                        var pieces = this.description().split(':');
+                        if(pieces.length > 1) {
+                            pieces.shift();
+                            return pieces.join(':');
+                        }
+                    },
+                    isPass: function (value) {
+                        return testTypes[this.name()].test(value, this.value());
+                    }
+                };
+            });
         });
 
         return {
-            test: function (dataToTest) {
-                dataToTest = deepStringify(dataToTest);
-
+            test: function (rawDataToTest) {
+                var dataToTest = deepStringify(rawDataToTest);
                 var errors = {};
 
                 foreach(schema, function runTestsOnGroup (tests, name) {
-                    if(tests[0].name() === 'sometimes') {
-                        if(dataToTest[name] !== undefined) {
+                    var valueToTest = dataToTest[name];
+                    var firstTest = tests[0];
+
+                    if(firstTest.name() === 'sometimes') {
+                        if(valueToTest !== undefined) {
                             tests.shift();
                             runTestsOnGroup(tests, name);
                         }
                     }
                     else if(
-                        tests[0].name() === 'required' ||
-                        (dataToTest[name] !== undefined && tests[0].name() === 'illegalField') ||
-                        dataToTest[name]
+                        firstTest.name() === 'required' ||
+                        firstTest.name() === 'illegalField' ||
+                        valueToTest
                     ) {
-                        foreach(tests, function (testObject) {
-                            if(!isTestPass(dataToTest[name], testObject)) {
+                        foreach(tests, function (test) {
+                            if(!test.isPass(valueToTest)) {
                                 if(!errors[name]) {
                                     errors[name] = [];
                                 }
-                                errors[name].push(testObject.message());
+                                errors[name].push(test.message());
                             }
                         });
                     }
