@@ -185,9 +185,8 @@
         },
 
         match: {
-            test: function (valueToTest) {
-                return isArray(valueToTest) && valueToTest.length === 2 ?
-                    valueToTest[0] == valueToTest[1] : false;
+            test: function (valueToTest, testValue, allValues) {
+                return valueToTest == allValues[testValue];
             },
             message: function (name, testValue) {
                 return name + ' must have matching values';
@@ -282,8 +281,8 @@
                             return pieces.join(':');
                         }
                     },
-                    isPass: function (value) {
-                        return testTypes[this.name()].test(value, this.value());
+                    isPass: function (value, allValues) {
+                        return testTypes[this.name()].test(value, this.value(), allValues);
                     }
                 };
             });
@@ -310,7 +309,7 @@
                         valueToTest
                     ) {
                         foreach(tests, function (test) {
-                            if(!test.isPass(valueToTest)) {
+                            if(!test.isPass(valueToTest, dataToTest)) {
                                 if(!errors[name]) {
                                     errors[name] = [];
                                 }

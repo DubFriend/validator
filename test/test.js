@@ -244,13 +244,13 @@ exports.customMessageTests = {
     },
 
     testMatchPass: function (test) {
-        test.deepEqual(this.validateExtended({ match: ['10', 10] }), {});
+        test.deepEqual(this.validateExtended({ match: '10', fieldToMatch:10 }), {});
         test.done();
     },
 
     testMatchFail: function (test) {
         test.deepEqual(
-            this.validateExtended({ match: [1, 2] }),
+            this.validateExtended({ match: 1, fieldToMatch: 2 }),
             { match: ['values must match'] }
         );
         test.done();

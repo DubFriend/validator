@@ -41,7 +41,7 @@
 	],
 
 	"match": [
-		{ "match": "values must match" }
+		{ "match:fieldToMatch": "values must match" }
 	],
 
 	"enumerated": [
