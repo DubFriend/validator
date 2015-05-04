@@ -252,7 +252,15 @@
     };
 
     var Validator = function (rawSchema) {
-        var schema = map(rawSchema, function  (tests, fieldName) {
+        var schema = map(rawSchema, function  (tests, rawFieldName) {
+
+            var parsedFieldName = rawFieldName
+                .replace(/-/g, ' ')
+                .replace(/([A-Z])/g, ' $1')
+                .replace(/(?:^|\s)\S/g, function (a) {
+                    return a.toUpperCase();
+                });
+
             return map(isArray(tests) ? tests : [tests], function (test) {
                 return {
                     message: function () {
@@ -260,7 +268,7 @@
                             return values(test)[0];
                         }
                         else {
-                            return testTypes[this.name()].message(fieldName, this.value());
+                            return testTypes[this.name()].message(parsedFieldName, this.value());
                         }
                     },
                     description: function () {
