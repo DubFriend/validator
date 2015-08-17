@@ -9,9 +9,9 @@ By using a JSON interface, Validator can be implemented in any programming langu
 ```json
 {
     "fieldName": [
-        test1, test2, ...
+        "test1", "test2", "..."
     ],
-    "anotherField": [...]
+    "anotherField": ["..."]
 }
 ```
 
