@@ -277,6 +277,8 @@ exports.customMessageTests = {
         test.deepEqual(this.validateExtended({ numeric: '.45' }), {});
         test.deepEqual(this.validateExtended({ numeric: '1.' }), {});
         test.deepEqual(this.validateExtended({ numeric: '01' }), {});
+        test.deepEqual(this.validateExtended({ numeric: '-1' }), {});
+        test.deepEqual(this.validateExtended({ numeric: '-1.2' }), {});
         test.done();
     },
 
