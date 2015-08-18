@@ -251,16 +251,19 @@
         }
     };
 
-    var Validator = function (rawSchema) {
-        var schema = map(rawSchema, function  (tests, rawFieldName) {
+    var Validator = function (rawSchema, options) {
+        options = options || {};
 
-            var parsedFieldName = rawFieldName
+        var parseFieldName = function (rawFieldName) {
+            return rawFieldName
                 .replace(/-/g, ' ')
                 .replace(/([A-Z])/g, ' $1')
                 .replace(/(?:^|\s)\S/g, function (a) {
                     return a.toUpperCase();
                 });
+        };
 
+        var schema = map(rawSchema, function  (tests, rawFieldName) {
             return map(isArray(tests) ? tests : [tests], function (test) {
                 return {
                     message: function () {
@@ -268,9 +271,13 @@
                             return values(test)[0];
                         }
                         else {
-                            return testTypes[this.name()].message(parsedFieldName, this.value());
+                            return testTypes[this.name()].message(
+                                parseFieldName(rawFieldName),
+                                this.value()
+                            );
                         }
                     },
+
                     description: function () {
                         if(isObject(test)) {
                             return keys(test)[0];
@@ -279,9 +286,11 @@
                             return test;
                         }
                     },
+
                     name: function () {
                         return this.description().split(':')[0];
                     },
+
                     value: function () {
                         var pieces = this.description().split(':');
                         if(pieces.length > 1) {
@@ -289,8 +298,13 @@
                             return pieces.join(':');
                         }
                     },
+
                     isPass: function (value, allValues) {
-                        return testTypes[this.name()].test(value, this.value(), allValues);
+                        return testTypes[this.name()].test(
+                            value,
+                            this.value(),
+                            allValues
+                        );
                     }
                 };
             });
@@ -326,6 +340,14 @@
                         });
                     }
                 });
+
+                if(options.strict) {
+                    foreach(rawDataToTest, function (value, key) {
+                        if(!schema[key]) {
+                            errors[key] = [parseFieldName(key) + ' is an illegal field'];
+                        }
+                    });
+                }
 
                 return errors;
             }

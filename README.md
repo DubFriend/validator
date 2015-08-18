@@ -130,21 +130,7 @@ Strings of only letters (upper or lower case)
 Strings of only letters and digits
 
 
-
-Currently Implentations are Javascript and PHP.
-
-##PHP
-
-```php
-$validator = new Validator(json_decode(file_get_contents('validation_schema.json'), true));
-
-$errors = $validator->test(array(
-    'username' => 'bob',
-    'password' => 'cornflakes'
-));
-```
-
-##JavaScript
+##Run
 
 ```javascript
 var validator = new Validator(schema);
@@ -154,6 +140,19 @@ var errors = validator.test({
     password: 'cornflakes'
 });
 ```
+
+##Strict Mode
+
+Only allow fields explicitly listed in the schema
+```javascript
+var validator = new Validator(schema);
+
+var errors = validator.test({
+    username: 'bob',
+    password: 'cornflakes'
+}, { strict: true });
+```
+
 
 install via npm
 `npm install the_validator`
