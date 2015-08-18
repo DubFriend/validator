@@ -367,5 +367,14 @@ exports.customMessageTests = {
             extra: ['Extra is an illegal field']
         }, 'fail');
         test.done();
+    },
+
+    testAny: function (test) {
+        var validator = new Validator({ foo: 'any' });
+        test.deepEqual(validator.test({ foo: 5 }), {});
+        test.deepEqual(validator.test({ foo: 0 }), {});
+        test.deepEqual(validator.test({}), {});
+        test.deepEqual(validator.test({ foo: 'asdf' }), {});
+        test.done();
     }
 };

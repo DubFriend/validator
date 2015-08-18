@@ -67,6 +67,15 @@
     };
 
     var testTypes = {
+        any: {
+            test: function () {
+                return true;
+            },
+            message: function () {
+                return 'Any value is allowed so this is wierd...';
+            }
+        },
+
         required: {
             test: function (valueToTest) {
                 return valueToTest ? true : false;
