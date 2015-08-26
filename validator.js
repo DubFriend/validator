@@ -76,6 +76,28 @@
             }
         },
 
+        type: {
+            test: function (valueToTest, testValue) {
+                switch(testValue) {
+                    case 'boolean':
+                        return typeof valueToTest === 'boolean';
+                    case 'number':
+                        return typeof valueToTest === 'number';
+                    case 'string':
+                        return isString(valueToTest);
+                    case 'object':
+                        return isObject(valueToTest);
+                    case 'array':
+                        return isArray(valueToTest);
+                    default:
+                        throw new Error('Invalid validation type');
+                }
+            },
+            message: function (name, testValue) {
+                return name + ' must be of type ' + testValue;
+            }
+        },
+
         required: {
             test: function (valueToTest) {
                 return valueToTest ? true : false;
@@ -321,7 +343,7 @@
 
         return {
             test: function (rawDataToTest) {
-                var dataToTest = deepStringify(rawDataToTest);
+                var dataToTest = rawDataToTest;
                 var errors = {};
 
                 foreach(schema, function runTestsOnGroup (tests, name) {
@@ -329,15 +351,13 @@
                     var firstTest = tests[0];
 
                     if(firstTest.name() === 'sometimes') {
-                        if(valueToTest !== undefined) {
-                            tests.shift();
-                            runTestsOnGroup(tests, name);
-                        }
+                        tests.shift();
+                        runTestsOnGroup(tests, name);
                     }
                     else if(
                         firstTest.name() === 'required' ||
                         firstTest.name() === 'illegalField' ||
-                        valueToTest
+                        valueToTest !== undefined
                     ) {
                         foreach(tests, function (test) {
                             if(!test.isPass(valueToTest, dataToTest)) {

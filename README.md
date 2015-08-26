@@ -77,7 +77,7 @@ must match the supplied regex
 ```
 
 ###type
-can test for types number, string, boolean, object, and null.
+can test for types number, string, boolean, and object.
 ```json
 { "type:boolean": "must be true or false" }
 ```
