@@ -294,6 +294,26 @@
                 });
         };
 
+        var containsTestWithName = function (tests, name) {
+            var containsTest = false;
+            foreach(tests, function (test) {
+                if(test.name() === name) {
+                    containsTest = true;
+                }
+            });
+            return containsTest;
+        };
+
+        var removeTestWithName = function (tests, name) {
+            var filtered = [];
+            foreach(tests, function (test) {
+                if(test.name() !== name) {
+                    filtered.push(test);
+                }
+            });
+            return filtered;
+        };
+
         var schema = map(rawSchema, function  (tests, rawFieldName) {
             return map(isArray(tests) ? tests : [tests], function (test) {
                 return {
@@ -350,23 +370,24 @@
                     var valueToTest = dataToTest[name];
                     var firstTest = tests[0];
 
-                    if(firstTest.name() === 'sometimes') {
-                        tests.shift();
-                        runTestsOnGroup(tests, name);
-                    }
-                    else if(
-                        firstTest.name() === 'required' ||
-                        firstTest.name() === 'illegalField' ||
+                    if(
+                        containsTestWithName(tests, 'required') ||
+                        containsTestWithName(tests, 'illegalField') ||
                         valueToTest !== undefined
                     ) {
-                        foreach(tests, function (test) {
-                            if(!test.isPass(valueToTest, dataToTest)) {
-                                if(!errors[name]) {
-                                    errors[name] = [];
+                        if(!(
+                            containsTestWithName(tests, 'allowNull') &&
+                            valueToTest === null
+                        )) {
+                            foreach(removeTestWithName(tests, 'allowNull'), function (test) {
+                                if(!test.isPass(valueToTest, dataToTest)) {
+                                    if(!errors[name]) {
+                                        errors[name] = [];
+                                    }
+                                    errors[name].push(test.message());
                                 }
-                                errors[name].push(test.message());
-                            }
-                        });
+                            });
+                        }
                     }
                 });
 

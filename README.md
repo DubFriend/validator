@@ -129,6 +129,10 @@ Strings of only letters (upper or lower case)
 ###alphanumeric
 Strings of only letters and digits
 
+###allowNull
+Allow null values to pass through, regardless of other validation rules applied
+to the field.
+
 
 ##Run
 

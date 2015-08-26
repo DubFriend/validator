@@ -46,6 +46,13 @@ exports.customMessageTests = {
         test.done();
     },
 
+    testRequiredCanOccurAnywhere: function (test) {
+        var validator = new Validator({ foo: ['type:number', 'required'] });
+        test.deepEqual(validator.test({ foo: 5 }), {});
+        test.deepEqual(validator.test({}), { foo: ['Foo must be of type number', 'Foo is required'] });
+        test.done();
+    },
+
     testFailRequiredKeyNotPresent: function (test) {
         test.deepEqual(
             this.validator.test({}),
@@ -73,51 +80,6 @@ exports.customMessageTests = {
     testUsernameMaximumLengthPass: function (test) {
         test.deepEqual(
             this.validator.test({ username: '1234567890' }), {}
-        );
-        test.done();
-    },
-
-    testSometimesIsUndefined: function (test) {
-        test.deepEqual(this.validateExtended(), {});
-        test.done();
-    },
-
-    // testSometimesIsEmptyString: function (test) {
-    //     test.deepEqual(
-    //         this.validateExtended({ sometimes: "" }),
-    //         {}
-    //     );
-    //     test.done()
-    // },
-
-    testSometimesIsZero: function (test) {
-        test.deepEqual(
-            this.validateExtended({ sometimes: 0 }),
-            { sometimes: ['3 minimum'] }
-        );
-        test.done();
-    },
-
-    testSometimesIsNumberOne: function (test) {
-        test.deepEqual(
-            this.validateExtended({ sometimes: 1 }).sometimes,
-            ['3 minimum']
-        );
-        test.done();
-    },
-
-    testSometimesIsZeroString: function (test) {
-        test.deepEqual(
-            this.validateExtended({ sometimes: 0 }).sometimes,
-            ['3 minimum']
-        );
-        test.done();
-    },
-
-    testSometimesKeyIsTooShort: function (test) {
-        test.deepEqual(
-            this.validateExtended({ sometimes: "ab" }).sometimes,
-            ["3 minimum"]
         );
         test.done();
     },
@@ -411,6 +373,14 @@ exports.customMessageTests = {
         test.deepEqual(validator.test({ foo: true }), {});
         test.deepEqual(validator.test({ foo: null }), { foo: ['Foo must be of type boolean']});
         test.deepEqual(validator.test({ foo: 0 }), { foo: ['Foo must be of type boolean']});
+        test.done();
+    },
+
+    testAllowNull: function (test) {
+        var validator = new Validator({ foo: ['type:number', 'allowNull'] });
+        test.deepEqual(validator.test({}), {});
+        test.deepEqual(validator.test({ foo: 5 }), {});
+        test.deepEqual(validator.test({ foo: null }), {});
         test.done();
     }
 };
