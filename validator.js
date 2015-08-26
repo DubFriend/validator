@@ -100,7 +100,10 @@
 
         required: {
             test: function (valueToTest) {
-                return valueToTest ? true : false;
+                return valueToTest === '' ||
+                       valueToTest === undefined ||
+                       valueToTest === null ?
+                            false : true;
             },
             message: function (name, testValue) {
                 return name + ' is required';

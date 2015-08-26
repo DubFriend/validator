@@ -23,24 +23,12 @@ tests are of the form
 ##testType
 
 ###required
-required must be the first test of a given fieldName.  Passes if the given field name evaluates to a truthy value. If a required test is not present, then subsequent tests will only be run if the tested data contains a key for the associated fieldname.
+Required will fail if testing a falsey or absent value, with the exception of
+the number 0.
 ```json
 {
     "username": [
         { "required": "you must supply a username" }
-    ]
-}
-```
-
-###sometimes
-sometimes must be the first test of a given fieldName.  One may use either
-`required` or `sometimes` as the first rule but not both.  "sometimes" will
-run tests if the given data key exists.  If the data key exists "sometimes" then
-follows the same logic as "required".
-```json
-{
-    "firstName": [
-        { "sometimes": "cannot update firstName with a falsey value" }
     ]
 }
 ```

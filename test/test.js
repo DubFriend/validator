@@ -38,11 +38,17 @@ exports.customMessageTests = {
     //     test.done();
     // },
 
-    testFailRequiredFalsyValue: function (test) {
+    testFailRequiredEmptyString: function (test) {
         test.deepEqual(
             this.validator.test({ username: '' }),
             { username: ['username required', '3 minimum'] }
         );
+        test.done();
+    },
+
+    testPassRequiredNumberZero: function (test) {
+        var validator = new Validator({ foo: ['type:number', 'required'] });
+        test.deepEqual(validator.test({ foo: 0 }), {});
         test.done();
     },
 
