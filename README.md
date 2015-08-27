@@ -23,8 +23,7 @@ tests are of the form
 ##testType
 
 ###required
-Required will fail if testing a falsey or absent value, with the exception of
-the number 0.
+Required will fail if the tested value is null, undefined, or the empty string.
 ```json
 {
     "username": [
