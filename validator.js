@@ -247,7 +247,7 @@
 
         integer: {
             test: function (valueToTest) {
-                return (/^[0-9]*$/).test(valueToTest);
+                return (/^-?[0-9]*$/).test(valueToTest);
             },
             message: function (name, testValue) {
                 return name + ' must be an integer';

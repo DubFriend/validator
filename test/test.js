@@ -260,6 +260,10 @@ exports.customMessageTests = {
     testIntegerPass: function (test) {
         test.deepEqual(this.validateExtended({ integer: '123' }), {});
         test.deepEqual(this.validateExtended({ integer: '0001' }), {});
+        test.deepEqual(this.validateExtended({ integer: '-1' }), {});
+        test.deepEqual(this.validateExtended({ integer: 1 }), {});
+        test.deepEqual(this.validateExtended({ integer: 0 }), {});
+        test.deepEqual(this.validateExtended({ integer: -1 }), {});
         test.done();
     },
 
