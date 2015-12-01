@@ -81,6 +81,12 @@ test if matches a proper email format
 { "email": "bad email format" }
 ```
 
+###uuid
+test if matches a proper uuid format
+```json
+{ "uuid": "bad uuid format" }
+```
+
 ###match
 tests both values of a passed array of two values match
 ```json

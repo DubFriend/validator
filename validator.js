@@ -218,6 +218,17 @@
             }
         },
 
+        uuid: {
+            test: function (valueToTest) {
+                return (
+                    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+                ).test(valueToTest);
+            },
+            message: function (name, testValue) {
+                return name + ' must be a uuid';
+            }
+        },
+
         match: {
             test: function (valueToTest, testValue, allValues) {
                 return valueToTest == allValues[testValue];

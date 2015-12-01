@@ -40,6 +40,10 @@
 		{ "email": "bad email format" }
 	],
 
+	"uuid": [
+		{ "uuid": "bad uuid format" }
+	],
+
 	"match": [
 		{ "match:fieldToMatch": "values must match" }
 	],

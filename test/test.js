@@ -23,7 +23,7 @@ exports.customMessageTests = {
     setUp: function (done) {
         this.validator = new Validator(testData);
         this.validateExtended = function (extraData) {
-            return this.validator.test(union({username: 'pass' }, extraData || {}));
+            return this.validator.test(union({ username: 'pass' }, extraData || {}));
         };
         done();
     },
@@ -207,6 +207,25 @@ exports.customMessageTests = {
         test.deepEqual(
             this.validateExtended({ email: 'wrong' }),
             { email: ['bad email format'] }
+        );
+        test.done();
+    },
+
+    testUUIDPass: function (test) {
+        test.deepEqual(this.validateExtended({ uuid: 'cc93a8ce-cb34-426f-b4d3-2480127f3c6c' }), {}, 'lowercase');
+        test.deepEqual(this.validateExtended({ uuid: 'CC93A8CE-CB34-426F-B4D3-2480127F3C6C' }), {}, 'uppercase');
+        test.deepEqual(this.validateExtended({ uuid: 'Cc93A8cE-cb34-426F-b4d3-2480127f3c6C' }), {}, 'mixedcase');
+        test.done();
+    },
+
+    testUUIDFail: function (test) {
+        test.deepEqual(
+            this.validateExtended({ uuid: 'c93a8ce-cb34-426f-b4d3-2480127f3c6c' }),
+            { uuid: ['bad uuid format'] }
+        );
+        test.deepEqual(
+            this.validateExtended({ uuid: 'CC93A8CE-CB34-426F-B4D3-2480127F3C6Ce' }),
+            { uuid: ['bad uuid format']}
         );
         test.done();
     },
