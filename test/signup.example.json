@@ -6,6 +6,9 @@
 		{ "regex:/^[a-zA-Z0-9]*$/": "alphanumeric only" }
 	],
 
+	"slugid": [
+		{ "slugid": "must be a valid slugid" }
+	],
 
 	"sometimes": [
 		{ "sometimes": "must be truthy if key exists" },

@@ -229,6 +229,16 @@
             }
         },
 
+        slugid: {
+            test: function (valueToTest) {
+                // console.log('value', valueToTest);
+                return /^[0-9a-z_-]{22}$/i.test(valueToTest);
+            },
+            message: function (name, testValue) {
+                return name + ' must be a slugid';
+            }
+        },
+
         match: {
             test: function (valueToTest, testValue, allValues) {
                 return valueToTest == allValues[testValue];

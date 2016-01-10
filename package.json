@@ -1,6 +1,6 @@
 {
   "name": "the_validator",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "universal validation through a json interface",
   "main": "validator.js",
   "scripts": {
@@ -27,5 +27,8 @@
     "grunt-contrib-nodeunit": "^0.4.1",
     "grunt-contrib-watch": "^0.6.1",
     "nodeunit": "~0.8.2"
+  },
+  "dependencies": {
+    "slugid": "^1.1.0"
   }
 }

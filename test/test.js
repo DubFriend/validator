@@ -1,5 +1,6 @@
 var Validator = require('../validator');
 var testData = require('./signup.example.json');
+var slugid = require('slugid');
 
 var foreach = function (collection, callback) {
     for(var i in collection) {
@@ -207,6 +208,19 @@ exports.customMessageTests = {
         test.deepEqual(
             this.validateExtended({ email: 'wrong' }),
             { email: ['bad email format'] }
+        );
+        test.done();
+    },
+
+    testSlugidPass: function (test) {
+        test.deepEqual(this.validateExtended({ slugid: slugid.v4() }), {});
+        test.done();
+    },
+
+    testSlugidFail: function (test) {
+        test.deepEqual(this.validateExtended
+            ({ slugid: 'wrong' }),
+            { slugid: ['must be a valid slugid'] }
         );
         test.done();
     },
