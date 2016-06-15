@@ -204,6 +204,11 @@ exports.customMessageTests = {
         test.done();
     },
 
+    testEmailAllowPlusCharacter: function (test) {
+        test.deepEqual(this.validateExtended({ email: 'email+foo@email.com' }), {});
+        test.done();
+    },
+
     testEmailFail: function (test) {
         test.deepEqual(
             this.validateExtended({ email: 'wrong' }),
