@@ -19,6 +19,10 @@
         return isString(value) || isArray(value);
     };
 
+    var isFunction = function (value) {
+        return !!(value && value.constructor && value.call && value.apply);
+    };
+
     var foreach = function (collection, callback) {
         for(var i in collection) {
             if(collection.hasOwnProperty(i)) {
@@ -89,6 +93,8 @@
                         return isObject(valueToTest);
                     case 'array':
                         return isArray(valueToTest);
+                    case 'function':
+                        return isFunction(valueToTest);
                     default:
                         throw new Error('Invalid validation type');
                 }
@@ -231,7 +237,6 @@
 
         slugid: {
             test: function (valueToTest) {
-                // console.log('value', valueToTest);
                 return /^[0-9a-z_-]{22}$/i.test(valueToTest);
             },
             message: function (name, testValue) {

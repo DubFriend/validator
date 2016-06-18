@@ -424,6 +424,13 @@ exports.customMessageTests = {
         test.done();
     },
 
+    testTypeFunction: function (test) {
+        var validator = new Validator({ foo: 'type:function' });
+        test.deepEqual(validator.test({ foo: {} }), { foo: ['Foo must be of type function'] });
+        test.deepEqual(validator.test({ foo: function () {} }), {});
+        test.done();
+    },
+
     testAllowNull: function (test) {
         var validator = new Validator({ foo: ['type:number', 'allowNull'] });
         test.deepEqual(validator.test({}), {});
