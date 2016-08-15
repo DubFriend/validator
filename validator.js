@@ -15,6 +15,14 @@
         return Object.prototype.toString.call(value) === '[object Object]';
     };
 
+    var isDate = function (value) {
+        return Object.prototype.toString.call(value) === '[object Date]';
+    };
+
+    var isRegex = function (value) {
+        return Object.prototype.toString.call(value) === '[object RegExp]';
+    };
+
     var isArrayOrString = function (value) {
         return isString(value) || isArray(value);
     };
@@ -95,6 +103,10 @@
                         return isArray(valueToTest);
                     case 'function':
                         return isFunction(valueToTest);
+                    case 'regex':
+                        return isRegex(valueToTest);
+                    case 'date':
+                        return isDate(valueToTest);
                     default:
                         throw new Error('Invalid validation type');
                 }

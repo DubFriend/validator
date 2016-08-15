@@ -431,6 +431,20 @@ exports.customMessageTests = {
         test.done();
     },
 
+    testTypeRegex: function (test) {
+        var validator = new Validator({ foo: 'type:regex' });
+        test.deepEqual(validator.test({ foo: {} }), { foo: ['Foo must be of type regex'] });
+        test.deepEqual(validator.test({ foo: /bar/ }), {});
+        test.done();
+    },
+
+    testTypeDate: function (test) {
+        var validator = new Validator({ foo: 'type:date' });
+        test.deepEqual(validator.test({ foo: {} }), { foo: ['Foo must be of type date'] });
+        test.deepEqual(validator.test({ foo: new Date() }), {});
+        test.done();
+    },
+
     testAllowNull: function (test) {
         var validator = new Validator({ foo: ['type:number', 'allowNull'] });
         test.deepEqual(validator.test({}), {});
