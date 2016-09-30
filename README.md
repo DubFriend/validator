@@ -1,10 +1,13 @@
-#The Validator!
+# The Validator!
 
-##Capable of leaping across language barriers, validating data in a flash, and rescuing small kittens.
+## Capable of leaping across language barriers, validating data in a flash, and rescuing small kittens.
+
+
+`npm install the_validator --save`
 
 By using a JSON interface, Validator can be implemented in any programming language.  Validator prevents duplication of validation logic on the client and server.
 
-##Create a schema
+## Create a schema
 
 ```json
 {
@@ -20,9 +23,9 @@ tests are of the form
 { "testType:testValue": "message if test fails" }
 ```
 
-##testType
+## testType
 
-###required
+### required
 Required will fail if the tested value is null, undefined, or the empty string.
 ```json
 {
@@ -32,7 +35,7 @@ Required will fail if the tested value is null, undefined, or the empty string.
 }
 ```
 
-###illegalField
+### illegalField
 ensures that the test data does not contain the given key.  illegalField should
 be the first and only test on a field.
 ```json
@@ -43,7 +46,7 @@ be the first and only test on a field.
 }
 ```
 
-###minimumLength
+### minimumLength
 string must be of the specified minum length
 ```json
 {
@@ -54,40 +57,40 @@ string must be of the specified minum length
 }
 ```
 
-###maximumLength
+### maximumLength
 analogous logic to minimumLength
 
-###regex
+### regex
 must match the supplied regex
 ```json
 {"regex:/^[a-zA-Z0-9*$/": "alphanumeric characters only" }
 ```
 
-###type
+### type
 can test for types number, string, boolean, and object.
 ```json
 { "type:boolean": "must be true or false" }
 ```
 
-###comparison operators
+### comparison operators
 perform the <, >, <=, >=, and == operators.
 ```json
 { ">=:100": "you must be 100cm tall to ride the Ferris wheel" }
 ```
 
-###email
+### email
 test if matches a proper email format
 ```json
 { "email": "bad email format" }
 ```
 
-###uuid
+### uuid
 test if matches a proper uuid format
 ```json
 { "uuid": "bad uuid format" }
 ```
 
-###match
+### match
 tests both values of a passed array of two values match
 ```json
 {
@@ -97,7 +100,7 @@ tests both values of a passed array of two values match
 }
 ```
 
-###enumerated
+### enumerated
 tests that value is a member of a set of values
 ```json
 {
@@ -107,27 +110,27 @@ tests that value is a member of a set of values
 }
 ```
 
-###numeric
+### numeric
 Numeric strings. accepts values such as "123", "1.2", ".5", "05", "1."
 ```json
 { "numeric": "numeric string" }
 ```
 
-###integer
+### integer
 Integer strings. Only characters 0-9
 
-###alphabetical
+### alphabetical
 Strings of only letters (upper or lower case)
 
-###alphanumeric
+### alphanumeric
 Strings of only letters and digits
 
-###allowNull
+### allowNull
 Allow null values to pass through, regardless of other validation rules applied
 to the field.
 
 
-##Run
+## Run
 
 ```javascript
 var validator = new Validator(schema);
@@ -138,7 +141,7 @@ var errors = validator.test({
 });
 ```
 
-##Strict Mode
+## Strict Mode
 
 Only allow fields explicitly listed in the schema
 ```javascript
@@ -150,6 +153,19 @@ var errors = validator.test({
 }, { strict: true });
 ```
 
+## customMessageMaps
 
-install via npm
-`npm install the_validator`
+Create your own error messages
+
+```javascript
+var errors = new Validator(
+    { foo: ['<:5'] },
+    {
+        customMessageMaps: {
+            '<': function (name, testValue) {
+                return 'The field ' + name + ' should be less than ' + testValue;
+            }
+        }
+    }
+).test({ foo: 6 });
+```

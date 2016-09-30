@@ -78,239 +78,6 @@
         return array[array.length - 1];
     };
 
-    var testTypes = {
-        any: {
-            test: function () {
-                return true;
-            },
-            message: function () {
-                return 'Any value is allowed so this is wierd...';
-            }
-        },
-
-        type: {
-            test: function (valueToTest, testValue) {
-                switch(testValue) {
-                    case 'boolean':
-                        return typeof valueToTest === 'boolean';
-                    case 'number':
-                        return typeof valueToTest === 'number';
-                    case 'string':
-                        return isString(valueToTest);
-                    case 'object':
-                        return isObject(valueToTest);
-                    case 'array':
-                        return isArray(valueToTest);
-                    case 'function':
-                        return isFunction(valueToTest);
-                    case 'regex':
-                        return isRegex(valueToTest);
-                    case 'date':
-                        return isDate(valueToTest);
-                    default:
-                        throw new Error('Invalid validation type');
-                }
-            },
-            message: function (name, testValue) {
-                return name + ' must be of type ' + testValue;
-            }
-        },
-
-        required: {
-            test: function (valueToTest) {
-                return valueToTest === '' ||
-                       valueToTest === undefined ||
-                       valueToTest === null ?
-                            false : true;
-            },
-            message: function (name, testValue) {
-                return name + ' is required';
-            }
-        },
-
-        illegalField: {
-            test: function (valueToTest) {
-                return valueToTest === undefined;
-            },
-            message: function (name, testValue) {
-                return name + ' is an illegal field';
-            }
-        },
-
-        minimumLength: {
-            test: function (valueToTest, testValue) {
-                return isArrayOrString(valueToTest) &&
-                    valueToTest.length >= testValue;
-            },
-            message: function (name, testValue) {
-                return name + ' must be at least ' + testValue + ' characters long';
-            }
-        },
-
-        maximumLength: {
-            test: function (valueToTest, testValue) {
-                return isArrayOrString(valueToTest) &&
-                    valueToTest.length <= testValue;
-            },
-            message: function (name, testValue) {
-                return name + ' cannot exceed a length of ' + testValue + ' characters';
-            }
-        },
-
-        regex: {
-            test: function (valueToTest, testValue) {
-                var pieces = testValue.split('/'),
-                    modifiers = last(pieces),
-                    pattern;
-
-                if(pieces.length) {
-                    pieces.pop();
-                }
-
-                if(pieces.length) {
-                    pieces.shift();
-                }
-
-                pattern = pieces.join('/');
-
-                return new RegExp(pattern, modifiers).test(valueToTest);
-            },
-            message: function (name, testValue) {
-                return name + ' is not properly formatted';
-            }
-        },
-
-        '<': {
-            test: function (valueToTest, testValue) {
-                return Number(valueToTest) < Number(testValue);
-            },
-            message: function (name, testValue) {
-                return name + ' must be less than ' + testValue;
-            }
-        },
-
-        '<=': {
-            test: function (valueToTest, testValue) {
-                return Number(valueToTest) <= Number(testValue);
-            },
-            message: function (name, testValue) {
-                return name + ' must be less than or equal to ' + testValue;
-            }
-        },
-
-        '>': {
-            test: function (valueToTest, testValue) {
-                return Number(valueToTest) > Number(testValue);
-            },
-            message: function (name, testValue) {
-                return name + ' must be greater than ' + testValue;
-            }
-        },
-
-        '>=': {
-            test: function (valueToTest, testValue) {
-                return Number(valueToTest) >= Number(testValue);
-            },
-            message: function (name, testValue) {
-                return name + ' must be greater than or equal to ' + testValue;
-            }
-        },
-
-        '==': {
-            test: function (valueToTest, testValue) {
-                return valueToTest == testValue;
-            },
-            message: function (name, testValue) {
-                return name + ' must be equal to ' + testValue;
-            }
-        },
-
-        email: {
-            test: function (valueToTest) {
-                return (
-                    /^([a-zA-Z0-9_+\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
-                ).test(valueToTest);
-            },
-            message: function (name, testValue) {
-                return name + ' must be an email address';
-            }
-        },
-
-        uuid: {
-            test: function (valueToTest) {
-                return (
-                    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
-                ).test(valueToTest);
-            },
-            message: function (name, testValue) {
-                return name + ' must be a uuid';
-            }
-        },
-
-        slugid: {
-            test: function (valueToTest) {
-                return /^[0-9a-z_-]{22}$/i.test(valueToTest);
-            },
-            message: function (name, testValue) {
-                return name + ' must be a slugid';
-            }
-        },
-
-        match: {
-            test: function (valueToTest, testValue, allValues) {
-                return valueToTest == allValues[testValue];
-            },
-            message: function (name, testValue) {
-                return name + ' must have matching values';
-            }
-        },
-
-        enumerated: {
-            test: function (valueToTest, testValue) {
-                return testValue.split(',').indexOf(valueToTest) !== -1;
-            },
-            message: function (name, testValue) {
-                return 'invalid value for ' + name;
-            }
-        },
-
-        numeric: {
-            test: function (valueToTest) {
-                return (/^-?[0-9]*\.?[0-9]*$/).test(valueToTest);
-            },
-            message: function (name, testValue) {
-                return name + ' must be a number';
-            }
-        },
-
-        integer: {
-            test: function (valueToTest) {
-                return (/^-?[0-9]*$/).test(valueToTest);
-            },
-            message: function (name, testValue) {
-                return name + ' must be an integer';
-            }
-        },
-
-        alphabetical: {
-            test: function (valueToTest) {
-                return (/^[a-zA-Z]*$/).test(valueToTest);
-            },
-            message: function (name, testValue) {
-                return name + ' must contain alphabetic letters only';
-            }
-        },
-
-        alphanumeric: {
-            test: function (valueToTest) {
-                return (/^[a-zA-Z0-9]*$/).test(valueToTest);
-            },
-            message: function (name, testValue) {
-                return name + ' must contain only letters and numbers';
-            }
-        }
-    };
-
     var deepStringify = function (data) {
         if(isArray(data) || isObject(data)) {
             return map(data, deepStringify);
@@ -324,16 +91,263 @@
     };
 
     var Validator = function (rawSchema, options) {
+        var testTypes = {
+            any: {
+                test: function () {
+                    return true;
+                },
+                message: function () {
+                    return 'Any value is allowed so this is wierd...';
+                }
+            },
+
+            type: {
+                test: function (valueToTest, testValue) {
+                    switch(testValue) {
+                        case 'boolean':
+                            return typeof valueToTest === 'boolean';
+                        case 'number':
+                            return typeof valueToTest === 'number';
+                        case 'string':
+                            return isString(valueToTest);
+                        case 'object':
+                            return isObject(valueToTest);
+                        case 'array':
+                            return isArray(valueToTest);
+                        case 'function':
+                            return isFunction(valueToTest);
+                        case 'regex':
+                            return isRegex(valueToTest);
+                        case 'date':
+                            return isDate(valueToTest);
+                        default:
+                            throw new Error('Invalid validation type');
+                    }
+                },
+                message: function (name, testValue) {
+                    return name + ' must be of type ' + testValue;
+                }
+            },
+
+            required: {
+                test: function (valueToTest) {
+                    return valueToTest === '' ||
+                           valueToTest === undefined ||
+                           valueToTest === null ?
+                                false : true;
+                },
+                message: function (name, testValue) {
+                    return name + ' is required';
+                }
+            },
+
+            illegalField: {
+                test: function (valueToTest) {
+                    return valueToTest === undefined;
+                },
+                message: function (name, testValue) {
+                    return name + ' is an illegal field';
+                }
+            },
+
+            minimumLength: {
+                test: function (valueToTest, testValue) {
+                    return isArrayOrString(valueToTest) &&
+                        valueToTest.length >= testValue;
+                },
+                message: function (name, testValue) {
+                    return name + ' must be at least ' + testValue + ' characters long';
+                }
+            },
+
+            maximumLength: {
+                test: function (valueToTest, testValue) {
+                    return isArrayOrString(valueToTest) &&
+                        valueToTest.length <= testValue;
+                },
+                message: function (name, testValue) {
+                    return name + ' cannot exceed a length of ' + testValue + ' characters';
+                }
+            },
+
+            regex: {
+                test: function (valueToTest, testValue) {
+                    var pieces = testValue.split('/'),
+                        modifiers = last(pieces),
+                        pattern;
+
+                    if(pieces.length) {
+                        pieces.pop();
+                    }
+
+                    if(pieces.length) {
+                        pieces.shift();
+                    }
+
+                    pattern = pieces.join('/');
+
+                    return new RegExp(pattern, modifiers).test(valueToTest);
+                },
+                message: function (name, testValue) {
+                    return name + ' is not properly formatted';
+                }
+            },
+
+            '<': {
+                test: function (valueToTest, testValue) {
+                    return Number(valueToTest) < Number(testValue);
+                },
+                message: function (name, testValue) {
+                    return name + ' must be less than ' + testValue;
+                }
+            },
+
+            '<=': {
+                test: function (valueToTest, testValue) {
+                    return Number(valueToTest) <= Number(testValue);
+                },
+                message: function (name, testValue) {
+                    return name + ' must be less than or equal to ' + testValue;
+                }
+            },
+
+            '>': {
+                test: function (valueToTest, testValue) {
+                    return Number(valueToTest) > Number(testValue);
+                },
+                message: function (name, testValue) {
+                    return name + ' must be greater than ' + testValue;
+                }
+            },
+
+            '>=': {
+                test: function (valueToTest, testValue) {
+                    return Number(valueToTest) >= Number(testValue);
+                },
+                message: function (name, testValue) {
+                    return name + ' must be greater than or equal to ' + testValue;
+                }
+            },
+
+            '==': {
+                test: function (valueToTest, testValue) {
+                    return valueToTest == testValue;
+                },
+                message: function (name, testValue) {
+                    return name + ' must be equal to ' + testValue;
+                }
+            },
+
+            email: {
+                test: function (valueToTest) {
+                    return (
+                        /^([a-zA-Z0-9_+\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+                    ).test(valueToTest);
+                },
+                message: function (name, testValue) {
+                    return name + ' must be an email address';
+                }
+            },
+
+            uuid: {
+                test: function (valueToTest) {
+                    return (
+                        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+                    ).test(valueToTest);
+                },
+                message: function (name, testValue) {
+                    return name + ' must be a uuid';
+                }
+            },
+
+            slugid: {
+                test: function (valueToTest) {
+                    return /^[0-9a-z_-]{22}$/i.test(valueToTest);
+                },
+                message: function (name, testValue) {
+                    return name + ' must be a slugid';
+                }
+            },
+
+            match: {
+                test: function (valueToTest, testValue, allValues) {
+                    return valueToTest == allValues[testValue];
+                },
+                message: function (name, testValue) {
+                    return name + ' must have matching values';
+                }
+            },
+
+            enumerated: {
+                test: function (valueToTest, testValue) {
+                    return testValue.split(',').indexOf(valueToTest) !== -1;
+                },
+                message: function (name, testValue) {
+                    return 'invalid value for ' + name;
+                }
+            },
+
+            numeric: {
+                test: function (valueToTest) {
+                    return (/^-?[0-9]*\.?[0-9]*$/).test(valueToTest);
+                },
+                message: function (name, testValue) {
+                    return name + ' must be a number';
+                }
+            },
+
+            integer: {
+                test: function (valueToTest) {
+                    return (/^-?[0-9]*$/).test(valueToTest);
+                },
+                message: function (name, testValue) {
+                    return name + ' must be an integer';
+                }
+            },
+
+            alphabetical: {
+                test: function (valueToTest) {
+                    return (/^[a-zA-Z]*$/).test(valueToTest);
+                },
+                message: function (name, testValue) {
+                    return name + ' must contain alphabetic letters only';
+                }
+            },
+
+            alphanumeric: {
+                test: function (valueToTest) {
+                    return (/^[a-zA-Z0-9]*$/).test(valueToTest);
+                },
+                message: function (name, testValue) {
+                    return name + ' must contain only letters and numbers';
+                }
+            }
+        };
+
         options = options || {};
 
-        var parseFieldName = function (rawFieldName) {
-            return rawFieldName
-                .replace(/-/g, ' ')
-                .replace(/([A-Z])/g, ' $1')
-                .replace(/(?:^|\s)\S/g, function (a) {
-                    return a.toUpperCase();
-                });
-        };
+        foreach(
+            options.customMessageMaps || {},
+            function (f, name) {
+                if(testTypes[name]) {
+                    testTypes[name].message = f;
+                }
+                else {
+                    console.warn(
+                        'customMessageMaps does not match any test type: ' + name
+                    );
+                }
+            }
+        );
+
+        // var parseFieldName = function (rawFieldName) {
+        //     return rawFieldName
+        //         .replace(/-/g, ' ')
+        //         .replace(/([A-Z])/g, ' $1')
+        //         .replace(/(?:^|\s)\S/g, function (a) {
+        //             return a.toUpperCase();
+        //         });
+        // };
 
         var containsTestWithName = function (tests, name) {
             var containsTest = false;
@@ -364,7 +378,8 @@
                         }
                         else {
                             return testTypes[this.name()].message(
-                                parseFieldName(rawFieldName),
+                                // parseFieldName(rawFieldName),
+                                rawFieldName,
                                 this.value()
                             );
                         }
@@ -435,7 +450,7 @@
                 if(options.strict) {
                     foreach(rawDataToTest, function (value, key) {
                         if(!schema[key]) {
-                            errors[key] = [parseFieldName(key) + ' is an illegal field'];
+                            errors[key] = [key + ' is an illegal field'];
                         }
                     });
                 }
