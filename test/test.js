@@ -59,7 +59,10 @@ exports.customMessageTests = {
     setUp: function (done) {
         this.validator = new Validator(testData);
         this.validateExtended = function (extraData) {
-            return this.validator.test(union({ username: 'pass' }, extraData || {}));
+            return this.validator.test(union(
+                { username: 'pass' },
+                extraData || {}
+            ));
         };
         done();
     },
@@ -226,6 +229,18 @@ exports.customMessageTests = {
             this.validateExtended({ equalTo: 1 }),
             { equalTo: ['must be equal to zero'] }
         );
+        test.done();
+    },
+
+    testAsciiPass: function (test) {
+        test.deepEqual(this.validateExtended({ ascii: 'aB0@# ' }), {});
+        test.done();
+    },
+
+    testAsciiFail: function (test) {
+        test.deepEqual(this.validateExtended({ ascii: 'Σ' }), {
+            ascii: ['must be ascii characters only']
+        });
         test.done();
     },
 

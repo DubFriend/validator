@@ -238,6 +238,15 @@
                 }
             },
 
+            ascii: {
+                test: function (valueToTest) {
+                    return /^[\x00-\x7F]*$/.test(valueToTest);
+                },
+                message: function (name, testValue) {
+                    return name + ' must contain only ascii characters';
+                }
+            },
+
             email: {
                 test: function (valueToTest) {
                     return (

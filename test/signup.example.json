@@ -39,6 +39,10 @@
 		{ "==:0": "must be equal to zero" }
 	],
 
+	"ascii": [
+		{ "ascii": "must be ascii characters only" }
+	],
+
 	"email": [
 		{ "email": "bad email format" }
 	],
