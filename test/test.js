@@ -262,6 +262,19 @@ exports.customMessageTests = {
         test.done();
     },
 
+    testURLPass: function (test) {
+        test.deepEqual(this.validateExtended({ url: 'http://foo.bar.us' }), {});
+        test.done();
+    },
+
+    testURLFail: function (test) {
+        test.deepEqual(
+            this.validateExtended({ url: 'wrong' }),
+            { url: ['bad url format'] }
+        );
+        test.done();
+    },
+
     testSlugidPass: function (test) {
         test.deepEqual(this.validateExtended({ slugid: slugid.v4() }), {});
         test.done();

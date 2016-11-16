@@ -47,6 +47,10 @@
 		{ "email": "bad email format" }
 	],
 
+	"url": [
+		{ "url": "bad url format" }
+	],
+
 	"uuid": [
 		{ "uuid": "bad uuid format" }
 	],
